@@ -27,6 +27,10 @@ public class LV1 extends GameState {
 	}
 	
 	public void handleInput(){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			gsm.pushState(GameStateManager.PAUSE);
+			return;
+        }
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 //			if(camX>=0&&abscamX>=2)
 //				abscamX-=2;
@@ -56,6 +60,8 @@ public class LV1 extends GameState {
 	}
 	
 	public void render(){
+		cam.setToOrtho(false, 640, 480);
+		sb.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		sb.begin();
 		for(int i = 0; i <22; i++)
