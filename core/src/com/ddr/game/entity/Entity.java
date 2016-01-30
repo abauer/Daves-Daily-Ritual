@@ -27,5 +27,7 @@ public abstract class Entity {
 	public int getAbsHeight() {return height*SPRITEWIDTH;}
 	
 	public abstract void draw(SpriteBatch sb,int camX,int camY);
-	
+	public abstract boolean contains(int absx, int absy);
+	public abstract boolean contains(int absx, int absy, int abswidth, int absheight);
+	public abstract boolean contains(Entity e);
 }

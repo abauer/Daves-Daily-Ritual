@@ -11,9 +11,12 @@ public class Obstacle extends Entity{
 	public Obstacle(int x, int y, int width, int height,int tlid){
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		id = new short[width*height];
+		this.width = Math.max(1,width);
+		this.height = Math.max(1, height);
+		if(width*height>=1)
+			id = new short[width*height];
+		else
+			id = new short[1];
 		for(int i =0; i<width; i++)
 			for(int j = 0; j<height; j++)
 				id[j*width+i]=(short)(tlid+i+j*SHEETWIDTH);
@@ -24,7 +27,10 @@ public class Obstacle extends Entity{
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		id = new short[width*height];
+		if(width*height>=1)
+			id = new short[width*height];
+		else
+			id = new short[1];
 		this.xoffset = xoffset;
 		this.yoffset = yoffset;
 		for(int i =0; i<width; i++)
@@ -39,23 +45,25 @@ public class Obstacle extends Entity{
 			ox = 16;
 		if(yoffset)
 			oy = 16;
-		
 		for(int i =0; i<width; i++)
 			for(int j=0; j<height; j++){
-					sb.draw(LV1.getSprite(Entity.entities,id[j*width+i]),(x-camX)*SPRITEWIDTH+ox,(15-y+camY)*SPRITEWIDTH-oy);
+					sb.draw(LV1.getSprite(Entity.entities,id[j*width+i]),(x+i-camX)*SPRITEWIDTH+ox,(15-1-y-j+camY)*SPRITEWIDTH-oy);
 			}
 	}
 	
+	public int getAbsX() {int t = x*SPRITEWIDTH; return (xoffset)?t+SPRITEWIDTH/2 : t;}
+	public int getAbsY() {int t = y*SPRITEWIDTH; return (yoffset)?t+SPRITEWIDTH/2 : t;}
+	
 	public boolean contains(int absx, int absy){
-		if(absx>this.x*SPRITEWIDTH && absx< this.x*SPRITEWIDTH+width*SPRITEWIDTH)
-			if(absy>this.y*SPRITEWIDTH && absx< this.y*SPRITEWIDTH+height*SPRITEWIDTH)
+		if(absx>=getAbsX() && absx< getAbsX()+getAbsWidth())
+			if(absy>=getAbsY() && absy< getAbsY()+getAbsHeight())
 				return true;
 		return false;
 	}
 	
 	public boolean contains(int absx, int absy, int abswidth, int absheight){
-		return (contains(absx,absy)||contains(absx+width,absy)||
-				contains(absx,absy+height)||contains(absx+width,absy+height));
+		return (contains(absx,absy)||contains(absx+abswidth,absy)||
+				contains(absx,absy+absheight)||contains(absx+abswidth,absy+absheight));
 	}
 	
 	public boolean contains(Entity e){

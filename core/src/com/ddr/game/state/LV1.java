@@ -12,8 +12,8 @@ public class LV1 extends GameState {
 	
 	private Level currentLevel = Level.ONE;
 	private static Texture tiles = new Texture("tile.png");
-	private int abscamX = 90*32;
-	private int abscamY = 90*32;
+	private int abscamX = 0;//90*32;
+	private int abscamY = 0;//90*32;
 	private int camX = 0;
 	private int camY = 0;
 	
@@ -30,22 +30,22 @@ public class LV1 extends GameState {
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 //			if(camX>=0&&abscamX>=2)
 //				abscamX-=2;
-			currentLevel.getPlayer().moveLeft();
+			currentLevel.em.moveLeft();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 //        	if(camX<128-(20))
 //				abscamX+=2;
-        	currentLevel.getPlayer().moveRight();
+        	currentLevel.em.moveRight();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
 //			if(camY>=0&&abscamY>=2)
 //				abscamY-=2;
-        	currentLevel.getPlayer().moveUp();
+        	currentLevel.em.moveUp();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 //        	if(camY<128-(15))
 //				abscamY+=2;
-        	currentLevel.getPlayer().moveDown();
+        	currentLevel.em.moveDown();
         }
         camX = (int)(abscamX/32);
         camY = (int)(abscamY/32);

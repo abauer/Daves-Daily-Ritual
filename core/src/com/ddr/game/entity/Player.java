@@ -25,11 +25,11 @@ public class Player extends Obstacle {
 		id[0]=(short) tlid;
 	}
 	
-	public void draw(SpriteBatch sb,int camX,int camY){//this might be 1,1 off because abs are diff than tile
-		sb.draw(LV1.getSprite(Entity.entities,id[0]),absx-camX*SPRITEWIDTH,(15+camY)*SPRITEWIDTH-absy);
+	public void draw(SpriteBatch sb,int camX,int camY){
+		sb.draw(LV1.getSprite(Entity.entities,id[0]),absx-(camX)*SPRITEWIDTH,(15+camY-1)*SPRITEWIDTH-absy);
 	}
 	
-	public int moveLeft(){ 
+	public int moveLeft(){
 		x=(absx-1)/SPRITEWIDTH; 
 		return absx-=xvel;}
 	

@@ -7,11 +7,10 @@ import com.ddr.game.entity.Player;
 public class Level {
 	static short one[]={0,1,2,3,4,5,6,7,8,9,10};
 	public static Level ONE = new Level(one);
-	public Player player;
 	
 	private short id[];
 	private static final short SIZE = 128;
-	private EntityManager em;
+	public EntityManager em;
 	
 	public Level(){
 		em = new EntityManager();
@@ -23,8 +22,7 @@ public class Level {
 	
 	public Level(short x[]){
 		em = new EntityManager();
-		player = new Player(90,90,1,1,10);
-		em.loadLevelOne(player);
+		em.loadLevelOne(new Player(0,0,1,1,10));
 		id = new short[SIZE*SIZE];
 		for(int i = 0; i<SIZE*SIZE; i++){
 			if(i<x.length)
@@ -35,7 +33,7 @@ public class Level {
 	}
 	
 	public Player getPlayer(){
-		return player;
+		return em.getPlayer();
 	}
 	
 	public short getId(int i){
