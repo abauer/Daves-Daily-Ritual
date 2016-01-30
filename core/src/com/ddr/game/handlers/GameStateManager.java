@@ -5,18 +5,18 @@ import java.util.Stack;
 import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.state.GameState;
 import com.ddr.game.state.Menu;
-import com.ddr.game.state.Play;
+import com.ddr.game.state.LV1;
 
 public class GameStateManager {
 
 	public DavesDailyRitual game;
 	private Stack<GameState> gameStates;
-	public static final int PLAY = 912124;
+	public static final int LV1 = 912124;
 	public static final int MENU = 314159;
 	public GameStateManager(DavesDailyRitual game){
 		this.game = game;
 		gameStates = new Stack<GameState>();
-		pushState(PLAY);
+		pushState(LV1); //first screen
 	}
 	
 	public DavesDailyRitual game() {return game;}
@@ -34,7 +34,7 @@ public class GameStateManager {
 	}
 	
 	private GameState getState(int state){
-		if(state == PLAY) return new Play(this);
+		if(state == LV1) return new LV1(this);
 		if(state == MENU) return new Menu(this);
 		return null;
 	}

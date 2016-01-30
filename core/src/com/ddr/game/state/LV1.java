@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ddr.game.Level;
 import com.ddr.game.handlers.GameStateManager;
 
-public class Play extends GameState {
+public class LV1 extends GameState {
 	
 	private Level currentLevel = Level.ONE;
 	private static Texture tiles = new Texture("tile.png");
-	private int abscamX = 0;//90*32;
-	private int abscamY = 0;//90*32;
+	private int abscamX = 90*32;
+	private int abscamY = 90*32;
 	private int camX = 0;
 	private int camY = 0;
 	
@@ -22,26 +22,30 @@ public class Play extends GameState {
 	private int camxvel = 0;
 	private int camyvel = 0;
 	
-	public Play(GameStateManager gsm){
+	public LV1(GameStateManager gsm){
 		super(gsm);
 	}
 	
 	public void handleInput(){
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			if(camX>=0&&abscamX>=2)
-				abscamX-=2;
+//			if(camX>=0&&abscamX>=2)
+//				abscamX-=2;
+			currentLevel.getPlayer().moveLeft();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-        	if(camX<128-(20))
-				abscamX+=2;
+//        	if(camX<128-(20))
+//				abscamX+=2;
+        	currentLevel.getPlayer().moveRight();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-			if(camY>=0&&abscamY>=2)
-				abscamY-=2;
+//			if(camY>=0&&abscamY>=2)
+//				abscamY-=2;
+        	currentLevel.getPlayer().moveUp();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-        	if(camY<128-(15))
-				abscamY+=2;
+//        	if(camY<128-(15))
+//				abscamY+=2;
+        	currentLevel.getPlayer().moveDown();
         }
         camX = (int)(abscamX/32);
         camY = (int)(abscamY/32);
@@ -59,6 +63,7 @@ public class Play extends GameState {
 				int id = currentLevel.getId(camX-1+i,camY-1+j);
 				sb.draw(getSprite(tiles,id),(i-1)*SPRITEWIDTH-abscamX%SPRITEWIDTH,(15-j)*SPRITEWIDTH+abscamY%SPRITEWIDTH);
 			}
+		currentLevel.drawEntities(sb, camX, camY);
 		sb.end();
 	}
 	

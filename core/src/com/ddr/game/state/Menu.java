@@ -26,7 +26,7 @@ public class Menu extends GameState {
 			
 			if(x>320-40&&y<15){
 				gsm.popState();
-				gsm.pushState(GameStateManager.PLAY);
+				gsm.pushState(GameStateManager.LV1);
 			}
 			
 		}

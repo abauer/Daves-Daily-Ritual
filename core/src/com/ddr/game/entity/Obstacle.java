@@ -1,7 +1,7 @@
 package com.ddr.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ddr.game.state.Play;
+import com.ddr.game.state.LV1;
 
 public class Obstacle extends Entity{
 	
@@ -32,8 +32,7 @@ public class Obstacle extends Entity{
 				id[j*width+i]=(short)(tlid+i+j*SHEETWIDTH);
 	}
 	
-	@Override
-	public void draw(SpriteBatch sb) {
+	public void draw(SpriteBatch sb,int camX, int camY) {
 		int ox = 0;
 		int oy = 0;
 		if(xoffset)
@@ -43,7 +42,7 @@ public class Obstacle extends Entity{
 		
 		for(int i =0; i<width; i++)
 			for(int j=0; j<height; j++){
-					sb.draw(Play.getSprite(Entity.entities,id[j*width+i]),x*SPRITEWIDTH+ox,(15-y)*SPRITEWIDTH-oy);
+					sb.draw(LV1.getSprite(Entity.entities,id[j*width+i]),(x-camX)*SPRITEWIDTH+ox,(15-y+camY)*SPRITEWIDTH-oy);
 			}
 	}
 	
