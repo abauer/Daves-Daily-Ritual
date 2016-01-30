@@ -1,6 +1,7 @@
 package com.ddr.game.state;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.handlers.GameStateManager;
@@ -11,7 +12,20 @@ public class Play extends GameState {
 		super(gsm);
 	}
 	
-	public void handleInput(){}
+	public void handleInput(){
+		 if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){}
+//	                sprite.translateX(-1f);
+//	            else
+//	                sprite.translateX(-10.0f);
+	        }
+	        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){}
+//	                sprite.translateX(1f);
+//	            else
+//	                sprite.translateX(10.0f);
+	        }
+	}
 	
 	public void update(float dt){}
 	

@@ -30,7 +30,7 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	@Override
 	public void create () {
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, WIDTH, HEIGHT);
+		cam.setToOrtho(false, 320, 240);
 		sb = new SpriteBatch();
 		gsm = new GameStateManager(this);
 	}
