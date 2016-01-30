@@ -16,11 +16,11 @@ public class LV1 extends GameState {
 	private int camX = 0;
 	private int camY = 0;
 	
-	private float camxaccel = 0;
-	private float camyaccel = 0;
+	private float camxaccel = 0f;
+	private float camyaccel = 0f;
 	private float maxcamaccel = 1.0f;
-	private float camxvel = 0;
-	private float camyvel = 0;
+	private float camxvel = 0f;
+	private float camyvel = 0f;
 	
 	public LV1(GameStateManager gsm){
 		super(gsm);
@@ -52,66 +52,75 @@ public class LV1 extends GameState {
 		int y = currentLevel.em.getPlayer().getAbsY()-480/2;
 		
 //		System.out.println("cam: ["+abscamX+", "+abscamY+"] p: "+(x+640/2)+", "+(y+480/2));
-//		System.out.println("acce: ["+camxaccel+", "+camyaccel+"] vel: "+camxvel+", "+camyvel+"");
+		
 		
 		if(abscamX<x){//left
-				camxaccel+=.05;
+				camxaccel+=.005;
 		}
 		else if(abscamX>x){
-				camxaccel-=.05;
+				camxaccel-=.005;
+//				System.out.println("here");
 		}
 		if(abscamY<y){//up
-				camyaccel+=.05;
+				camyaccel+=.005;
 		}
 		else if(abscamY>y){//down
-				camyaccel-=.05;
+				camyaccel-=.005;
 		}
     	
-		if(camxaccel>=maxcamaccel)
-			camxaccel=maxcamaccel;
-		if(camyaccel>=maxcamaccel)
-			camyaccel=maxcamaccel;
-		if(camxaccel<=-maxcamaccel)
-			camxaccel=-maxcamaccel;
-		if(camyaccel<=-maxcamaccel)
-			camyaccel=-maxcamaccel;
+		if(camxaccel>=1.0*maxcamaccel)
+			camxaccel=(float) (1.0*maxcamaccel);
+		if(camyaccel>=1.0*maxcamaccel)
+			camyaccel=(float) (1.0*maxcamaccel);
+		if(camxaccel<=-1.0*maxcamaccel)
+			camxaccel=(float) (-1.0*maxcamaccel);
+		if(camyaccel<=-1.0*maxcamaccel)
+			camyaccel=(float) (-1.0*maxcamaccel);
 		
 		camxvel += camxaccel;
 		camyvel += camyaccel;
 		
-		if(camxvel>=1)
-			camxvel = 1;
-		if(camyvel>=1)
-			camyvel = 1;
-		if(camxvel<=-1)
-			camxvel = -1;
-		if(camyvel<=-1)
-			camyvel = -1;
+		if(camxvel>=1.0)
+			camxvel = (float) 1.0;
+		if(camyvel>=1.0)
+			camyvel = (float) 1.0;
+		if(camxvel<=-1.0)
+			camxvel = (float) -1.0;
+		if(camyvel<=-1.0)
+			camyvel = (float) -1.0;
 		
-		abscamX+=camxvel;
-		abscamY+=camyvel;
+//		System.out.println("acce: ["+camxaccel*-1+", "+camyaccel+"] vel: "+camxvel+", "+camyvel+"");
+		
+		abscamX+=Math.round(camxvel);
+		abscamY+=Math.round(camyvel);
 		
 		if(abscamX<0){
 			abscamX=0;
+//			System.out.println("lesx");
 		}
 		if(abscamX>(currentLevel.size-20)*Sprite.SIZE){
 			abscamX=(currentLevel.size-20)*Sprite.SIZE;
+//			System.out.println("morex");
 		}
 		if(abscamY<0){
 			abscamY=0;
+//			System.out.println("lesy");
 		}
 		if(abscamY>(currentLevel.size-15)*Sprite.SIZE){
 			abscamY=(currentLevel.size-15)*Sprite.SIZE;
+//			System.out.println("morey");
 		}
 		
 		if(abscamX==x){
 			camxaccel=0;
 			camxvel=0;
+//			System.out.println("caught player x");
 		}
 		if(abscamY==y){
 			camyaccel=0;
 			camyvel=0;
-			abscamY=y;
+//			System.out.println("caught player y");
+//			abscamY=y;
 		}
 		
 		camX = (int)(abscamX/Sprite.SIZE);

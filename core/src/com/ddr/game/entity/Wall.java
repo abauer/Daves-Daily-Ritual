@@ -12,7 +12,7 @@ public class Wall extends Obstacle{
 	}
 	
 	public void draw(SpriteBatch sb,int abscamx, int abscamy) {
-		if(id[0]!=0){
+//		if(id[0]!=0){
 			int ox = 0;
 			int oy = 0;
 			if(xoffset)
@@ -24,7 +24,7 @@ public class Wall extends Obstacle{
 						int absx = (x+i)*Sprite.SIZE+ox-abscamx;
 						int absy = (15-1-y-j)*Sprite.SIZE-oy+abscamy;
 						sb.draw(Sprite.getSprite(Sprite.cities,0),absx,absy);
-				}
+//				}
 		}
 	}
 }
