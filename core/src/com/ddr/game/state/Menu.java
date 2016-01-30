@@ -3,8 +3,6 @@ package com.ddr.game.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
@@ -19,7 +17,7 @@ public class Menu extends GameState {
 		super(gsm);
 	}
 	
-	public void handleInput(){
+	public void handleInput(float dt){
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 			int x = Gdx.input.getX()/2;
 			int y = Gdx.input.getY()/2;
@@ -33,7 +31,7 @@ public class Menu extends GameState {
 	}
 	
 	public void update(float dt){
-		handleInput();
+		handleInput(dt);
 	}
 	
 	public void render(){
@@ -44,9 +42,7 @@ public class Menu extends GameState {
 //		sb.setColor(Color.CLEAR);
 //		sb.draw(DavesDailyRitual.getSprite("city.png",9,1), 1*16, 1*16+32);
 		
-		Texture t = new Texture(40, 15, Format.RGB888);
 //		sb.setColor(Color.BLUE);
-		sb.draw(t,340,240-15);
 		
 		
 		font.draw(sb,"Play",640/2-40,480/2-15);

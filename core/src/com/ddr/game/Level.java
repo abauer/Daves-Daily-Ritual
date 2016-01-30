@@ -5,25 +5,28 @@ import com.ddr.game.entity.EntityManager;
 import com.ddr.game.entity.Player;
 
 public class Level {
-	public static Level ONE = new Level(LevelDefs.one);
+	public static Level ONE = new Level(LevelDefs.one,32);
 	
 	private short id[];
-	private static final short SIZE = 32;
+	public short size = 1;
 	public EntityManager em;
 	
 	public Level(){
 		em = new EntityManager();
-		id = new short[SIZE*SIZE];
-		for(int i = 0; i<SIZE*SIZE; i++){
+		id = new short[size*size];
+		for(int i = 0; i<size*size; i++){
 			id[i]=(short) (i%(19*19));
 		}
 	}
 	
-	public Level(short x[]){
+	public Level(short x[],int size){
+		this.size = (short) size;
+		if(size<1)
+			this.size = (short)(size = 1);
 		em = new EntityManager();
 		em.loadLevel(LevelDefs.oneP,LevelDefs.oneE);
-		id = new short[SIZE*SIZE];
-		for(int i = 0; i<SIZE*SIZE; i++){
+		id = new short[size*size];
+		for(int i = 0; i<size*size; i++){
 			if(i<x.length)
 				id[i]=x[i];
 			else
@@ -40,13 +43,13 @@ public class Level {
 	}
 	
 	public short getId(int x, int y){
-		int temp = y*SIZE+x;
+		int temp = y*size+x;
 		if(temp<0||temp>=id.length)
 			return 19;
-		return id[y*SIZE+x];
+		return id[y*size+x];
 	}
 	
-	public void drawEntities(SpriteBatch sb, int x, int y){
-		em.drawEntities(sb, x, y);
+	public void drawEntities(SpriteBatch sb, int camx, int camy){
+		em.drawEntities(sb, (camx/Sprite.SIZE),(camy/Sprite.SIZE),camx, camy);
 	}
 }

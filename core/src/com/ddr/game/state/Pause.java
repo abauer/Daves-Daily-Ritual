@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.handlers.GameStateManager;
 
 public class Pause extends GameState{
@@ -18,7 +19,7 @@ public class Pause extends GameState{
 		super(gsm);
 	}
 
-	public void handleInput() {
+	public void handleInput(float dt) {
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 			int x = Gdx.input.getX()/2;
 			int y = Gdx.input.getY()/2;
@@ -26,14 +27,14 @@ public class Pause extends GameState{
 				gsm.popState();
 			}
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)&&dt==DavesDailyRitual.BIGSTEP){
 			gsm.popState();
 			return;
         }
 	}
 
 	public void update(float dt) {
-		handleInput();
+		handleInput(dt);
 	}
 
 	public void render() {

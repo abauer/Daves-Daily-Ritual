@@ -1,6 +1,5 @@
 package com.ddr.game.entity;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.Sprite;
 
@@ -10,7 +9,6 @@ public abstract class Entity {
 	protected int width;
 	protected int height;
 	protected short id[];
-	public static Texture entities = new Texture("city32.png");
 	
 	public Entity(){}
 	

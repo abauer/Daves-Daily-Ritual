@@ -33,17 +33,17 @@ public class EntityManager {
 		}
 	}
 
-	public void drawEntities(SpriteBatch sb,int camX, int camY){
+	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){
 		for(int i =0; i<list.size(); i++){
 			if(onScreen(list.get(i),camX,camY)){
-				list.get(i).draw(sb,camX,camY);
+				list.get(i).draw(sb,abscamx,abscamy);
 			}
 		}
 	}
 	
 	private boolean onScreen(Entity e, int x, int y){
-		if(e.getX()>=x-1 && e.getX()<x+20)
-			if(e.getY() >=y && e.getY()<=y+15){
+		if(e.getX()>=x-2 && e.getX()<x+22)
+			if(e.getY() >=y-1 && e.getY()<=y+16){
 				return true;
 			}
 		return false;
@@ -53,37 +53,37 @@ public class EntityManager {
 		return p;
 	}
 	
-	public int moveRight(){
+	public int moveRight(int dis){
 		for(int i = 0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX()+1, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).contains(p.getAbsX()+dis, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
 					return -1;
 		}
-		return p.moveRight();
+		return p.moveRight(dis);
 	}
-	public int moveLeft(){
+	public int moveLeft(int dis){
 		for(int i =0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX()-1, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).contains(p.getAbsX()-dis, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
 						return -1;
 		}
-		return p.moveLeft();
+		return p.moveLeft(dis);
 	}
-	public int moveUp(){
+	public int moveUp(int dis){
 		for(int i =0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX(), p.getAbsY()-1, p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).contains(p.getAbsX(), p.getAbsY()-dis, p.getAbsWidth(), p.getAbsHeight()))
 						return -1;
 		}
-		return p.moveUp();
+		return p.moveUp(dis);
 	}
-	public int moveDown(){
+	public int moveDown(int dis){
 		for(int i =0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX(), p.getAbsY()+1, p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).contains(p.getAbsX(), p.getAbsY()+dis, p.getAbsWidth(), p.getAbsHeight()))
 						return -1;
 		}
-		return p.moveDown();
+		return p.moveDown(dis);
 	}
 	
 	

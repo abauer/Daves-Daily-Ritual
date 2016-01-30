@@ -2,7 +2,6 @@ package com.ddr.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.Sprite;
-import com.ddr.game.state.LV1;
 
 public class Wall extends Obstacle{
 
@@ -12,16 +11,20 @@ public class Wall extends Obstacle{
 		id[0]=(short)tlid;
 	}
 	
-	public void draw(SpriteBatch sb,int camX, int camY) {
-		int ox = 0;
-		int oy = 0;
-		if(xoffset)
-			ox = 16;
-		if(yoffset)
-			oy = 16;
-		for(int i =0; i<width; i++)
-			for(int j=0; j<height; j++){
-					sb.draw(Sprite.getSprite(Entity.entities,0),(x+i-camX)*Sprite.SIZE+ox,(15-1-y-j+camY)*Sprite.SIZE-oy);
-			}
+	public void draw(SpriteBatch sb,int abscamx, int abscamy) {
+		if(id[0]!=0){
+			int ox = 0;
+			int oy = 0;
+			if(xoffset)
+				ox = 16;
+			if(yoffset)
+				oy = 16;
+			for(int i =0; i<width; i++)
+				for(int j=0; j<height; j++){
+						int absx = (x+i)*Sprite.SIZE+ox-abscamx;
+						int absy = (15-1-y-j)*Sprite.SIZE-oy+abscamy;
+						sb.draw(Sprite.getSprite(Sprite.cities,0),absx,absy);
+				}
+		}
 	}
 }

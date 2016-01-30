@@ -19,7 +19,7 @@ public abstract class GameState {
 		cam = game.getCamera();
 	}
 	
-	public abstract void handleInput();
+	public abstract void handleInput(float dt);
 	public abstract void update(float dt);
 	public abstract void render();
 	public abstract void dispose();

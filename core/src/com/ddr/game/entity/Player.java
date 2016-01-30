@@ -2,7 +2,6 @@ package com.ddr.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.Sprite;
-import com.ddr.game.state.LV1;
 
 public class Player extends Obstacle {
 	
@@ -26,24 +25,26 @@ public class Player extends Obstacle {
 		id[0]=(short) tlid;
 	}
 	
-	public void draw(SpriteBatch sb,int camX,int camY){
-		sb.draw(Sprite.getSprite(Entity.entities,id[0]),absx-(camX)*Sprite.SIZE,(15+camY-1)*Sprite.SIZE-absy);
+	public void draw(SpriteBatch sb,int abscamx,int abscamy){
+		int tx = absx-abscamx;
+		int ty = (14)*Sprite.SIZE-absy+abscamy;
+		sb.draw(Sprite.getSprite(Sprite.cities,id[0]),tx,ty);
 	}
 	
-	public int moveLeft(){
-		x=(absx-1)/Sprite.SIZE; 
+	public int moveLeft(int dis){
+		x=(absx-dis)/Sprite.SIZE; 
 		return absx-=xvel;}
 	
-	public int moveRight(){
-		x=(absx+1)/Sprite.SIZE; 
+	public int moveRight(int dis){
+		x=(absx+dis)/Sprite.SIZE; 
 		return absx+=xvel;}
 	
-	public int moveUp(){
-		y=(absy-1)/Sprite.SIZE; 
+	public int moveUp(int dis){
+		y=(absy-dis)/Sprite.SIZE; 
 		return absy-=yvel;}
 	
-	public int moveDown(){
-		y=(absy+1)/Sprite.SIZE; 
+	public int moveDown(int dis){
+		y=(absy+dis)/Sprite.SIZE; 
 		return absy+=yvel;}
 	
 	public int getAbsX() {return absx;}
