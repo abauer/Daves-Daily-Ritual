@@ -1,8 +1,8 @@
 package com.ddr.game;
 
 public class Level {
-	static short one[]={1,2,3,4,5,6,7,8,9,10};
-	public static Level ONE = new Level();
+	static short one[]={0,1,2,3,4,5,6,7,8,9,10};
+	public static Level ONE = new Level(one);
 	
 	private short id[];
 	private static final short SIZE = 128;
@@ -31,7 +31,7 @@ public class Level {
 	public short getId(int x, int y){
 		int temp = y*SIZE+x;
 		if(temp<0||temp>=id.length)
-			return 0;
+			return 19;
 		return id[y*SIZE+x];
 	}
 	

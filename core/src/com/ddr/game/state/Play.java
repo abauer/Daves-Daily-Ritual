@@ -11,33 +11,36 @@ import com.ddr.game.handlers.GameStateManager;
 public class Play extends GameState {
 	
 	private Level currentLevel = Level.ONE;
-	private Texture tiles;
+	private static Texture tiles = new Texture("tile.png");
 	private int abscamX = 0;//90*32;
 	private int abscamY = 0;//90*32;
 	private int camX = 0;
 	private int camY = 0;
 	
+	private int camxaccel = 0;
+	private int camyaccel = 0;
+	private int camxvel = 0;
+	private int camyvel = 0;
 	
 	public Play(GameStateManager gsm){
 		super(gsm);
-		tiles = new Texture("tile.png");
 	}
 	
 	public void handleInput(){
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			if(camX-1>=0)
+			if(camX>=0&&abscamX>=2)
 				abscamX-=2;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-        	if(camX+1<128-(20+4))
+        	if(camX<128-(20))
 				abscamX+=2;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-			if(camY-1>=0)
+			if(camY>=0&&abscamY>=2)
 				abscamY-=2;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-        	if(camY+1<128-(15+4))
+        	if(camY<128-(15))
 				abscamY+=2;
         }
         camX = (int)(abscamX/32);
@@ -51,10 +54,10 @@ public class Play extends GameState {
 	public void render(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		sb.begin();
-		for(int i = 0; i <24; i++)
-			for(int j = 0; j<19; j++){
-				int id = currentLevel.getId(camX-4+i,camY-4+j);
-				sb.draw(getSprite(tiles,id),(i-2)*SPRITEWIDTH-abscamX%SPRITEWIDTH,(17-j)*SPRITEWIDTH+abscamY%SPRITEWIDTH);
+		for(int i = 0; i <22; i++)
+			for(int j = 0; j<17; j++){
+				int id = currentLevel.getId(camX-1+i,camY-1+j);
+				sb.draw(getSprite(tiles,id),(i-1)*SPRITEWIDTH-abscamX%SPRITEWIDTH,(15-j)*SPRITEWIDTH+abscamY%SPRITEWIDTH);
 			}
 		sb.end();
 	}
