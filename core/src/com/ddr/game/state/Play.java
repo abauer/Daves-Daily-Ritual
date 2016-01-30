@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.Level;
 import com.ddr.game.handlers.GameStateManager;
 
@@ -13,8 +12,8 @@ public class Play extends GameState {
 	
 	private Level currentLevel = Level.ONE;
 	private Texture tiles;
-	private int abscamX = 0;
-	private int abscamY = 0;
+	private int abscamX = 0;//90*32;
+	private int abscamY = 0;//90*32;
 	private int camX = 0;
 	private int camY = 0;
 	
@@ -27,20 +26,22 @@ public class Play extends GameState {
 	public void handleInput(){
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			if(camX-1>=0)
-				camX--;
+				abscamX-=2;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-        	if(camX+1<108)
-				camX++;
+        	if(camX+1<128-(20+4))
+				abscamX+=2;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
 			if(camY-1>=0)
-				camY--;
+				abscamY-=2;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-        	if(camY+1<113)
-				camY++;
+        	if(camY+1<128-(15+4))
+				abscamY+=2;
         }
+        camX = (int)(abscamX/32);
+        camY = (int)(abscamY/32);
 	}
 	
 	public void update(float dt){
@@ -50,10 +51,10 @@ public class Play extends GameState {
 	public void render(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		sb.begin();
-		for(int i = 0; i <22; i++)
-			for(int j = 0; j<17; j++){
-				int id = currentLevel.getId(camX-2+i,camY-2+j);
-				sb.draw(getSprite(tiles,id),(i-1)*SPRITEWIDTH,(16-j)*SPRITEWIDTH);
+		for(int i = 0; i <24; i++)
+			for(int j = 0; j<19; j++){
+				int id = currentLevel.getId(camX-4+i,camY-4+j);
+				sb.draw(getSprite(tiles,id),(i-2)*SPRITEWIDTH-abscamX%SPRITEWIDTH,(17-j)*SPRITEWIDTH+abscamY%SPRITEWIDTH);
 			}
 		sb.end();
 	}
