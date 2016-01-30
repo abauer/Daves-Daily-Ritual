@@ -10,6 +10,11 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
+	public static int WIDTH = 640;
+	public static int HEIGHT = 480;
+	public static int SCALE = 2;
+	public static String TITLE = "Daves Daily Ritual";
+	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
