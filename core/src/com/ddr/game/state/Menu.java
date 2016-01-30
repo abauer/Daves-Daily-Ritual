@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.handlers.GameStateManager;
 
 public class Menu extends GameState {
