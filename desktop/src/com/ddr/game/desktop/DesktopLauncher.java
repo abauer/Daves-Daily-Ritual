@@ -12,7 +12,9 @@ public class DesktopLauncher {
 		config.width = DavesDailyRitual.WIDTH * DavesDailyRitual.SCALE;
 		config.height = DavesDailyRitual.HEIGHT * DavesDailyRitual.SCALE;
 		config.resizable = false;
-		config.addIcon("res/icon.png", Files.FileType.Internal);
+		config.addIcon("icon_128.png", Files.FileType.Internal);
+		config.addIcon("icon_32.png", Files.FileType.Internal);
+		config.addIcon("icon_16.png", Files.FileType.Internal);
 
 		new LwjglApplication(new DavesDailyRitual(), config);
 	}
