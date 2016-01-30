@@ -35,14 +35,7 @@ public class DavesDailyRitual extends ApplicationAdapter {
 		gsm = new GameStateManager(this);
 	}
 	
-	public static TextureRegion getSprite(String s, int x, int y){
-		return new TextureRegion(new Texture(s), x*17, y*17, 16, 16);
-	}
 	
-	public static int SPRITEWIDTH;
-	public static TextureRegion getSprite(String s, int n){
-		return getSprite(s,n%SPRITEWIDTH,n/SPRITEWIDTH);
-	}
 	
 	@Override
 	public void render () {

@@ -26,10 +26,10 @@ public class Menu extends GameState {
 			int y = Gdx.input.getY()/2;
 			
 			if(x>320-40&&y<15){
-				System.out.println(x+" "+ y);
+				gsm.popState();
+				gsm.pushState(GameStateManager.PLAY);
 			}
-//			gsm.popState();
-//			gsm.pushState(GameStateManager.PLAY);
+			
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class Menu extends GameState {
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 //		sb.setColor(Color.CLEAR);
-		sb.draw(DavesDailyRitual.getSprite("city.png",9,1), 1*16, 1*16+32);
+//		sb.draw(DavesDailyRitual.getSprite("city.png",9,1), 1*16, 1*16+32);
 		
 		Texture t = new Texture(40, 15, Format.RGB888);
 //		sb.setColor(Color.BLUE);
@@ -58,14 +58,11 @@ public class Menu extends GameState {
 		sb.end();
 		
 		cam.update();
-		
-		 sr.setProjectionMatrix(cam.combined);
-		 
-		 sr.begin(ShapeType.Line);
-		 sr.setColor(1, 1, 0, 1);
-		 sr.rect(280, 225, 40, 15);
-		 sr.end();
-		
+		sr.setProjectionMatrix(cam.combined);
+		sr.begin(ShapeType.Line);
+		sr.setColor(1, 1, 0, 1);
+		sr.rect(280, 225, 40, 15);
+		sr.end();	
 	}
 	
 	public void dispose(){}
