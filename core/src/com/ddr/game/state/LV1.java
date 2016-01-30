@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ddr.game.Level;
+import com.ddr.game.Sprite;
 import com.ddr.game.handlers.GameStateManager;
 
 public class LV1 extends GameState {
@@ -67,19 +68,10 @@ public class LV1 extends GameState {
 		for(int i = 0; i <22; i++)
 			for(int j = 0; j<17; j++){
 				int id = currentLevel.getId(camX-1+i,camY-1+j);
-				sb.draw(getSprite(tiles,id),(i-1)*SPRITEWIDTH-abscamX%SPRITEWIDTH,(15-j)*SPRITEWIDTH+abscamY%SPRITEWIDTH);
+				sb.draw(Sprite.getSprite(tiles,id),(i-1)*Sprite.SIZE-abscamX%Sprite.SIZE,(15-j)*Sprite.SIZE+abscamY%Sprite.SIZE);
 			}
 		currentLevel.drawEntities(sb, camX, camY);
 		sb.end();
-	}
-	
-	public static TextureRegion getSprite(Texture s, int x, int y){
-		return new TextureRegion(s, x*SPRITEWIDTH, y*SPRITEWIDTH, SPRITEWIDTH, SPRITEWIDTH);
-	}
-	
-	public static int SPRITEWIDTH=32;
-	public static TextureRegion getSprite(Texture s, int n){
-		return getSprite(s,n%SPRITEWIDTH,n/SPRITEWIDTH);
 	}
 	
 	public void dispose(){}

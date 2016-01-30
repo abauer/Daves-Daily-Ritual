@@ -21,6 +21,17 @@ public class EntityManager {
 		list.add(p);
 		list.add(new Obstacle(2, 2, 2, 2, 25,false,true));
 	}
+	
+	public void loadLevel(Player p,Entity e[]){
+		for(int i =0; i<list.size(); i+=0){
+			list.remove(0);
+		}
+		this.p=p;
+		list.add(p);
+		for(int i =0; i<e.length; i++){
+			list.add(e[i]);
+		}
+	}
 
 	public void drawEntities(SpriteBatch sb,int camX, int camY){
 		for(int i =0; i<list.size(); i++){

@@ -2,12 +2,9 @@ package com.ddr.game.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ddr.game.state.LV1;
+import com.ddr.game.Sprite;
 
 public abstract class Entity {
-	
-	protected final int SPRITEWIDTH = LV1.SPRITEWIDTH;
-	protected final int SHEETWIDTH = 30; //TODO FIX THIS NUMBER
 	protected int x;
 	protected int y;
 	protected int width;
@@ -19,12 +16,12 @@ public abstract class Entity {
 	
 	public int getX() {return x;}
 	public int getY() {return y;}
-	public int getAbsX() {return x*SPRITEWIDTH;}
-	public int getAbsY() {return y*SPRITEWIDTH;}
+	public int getAbsX() {return x*Sprite.SIZE;}
+	public int getAbsY() {return y*Sprite.SIZE;}
 	public int getWidth() {return width;}
 	public int getHeight() {return height;}
-	public int getAbsWidth() {return width*SPRITEWIDTH;}
-	public int getAbsHeight() {return height*SPRITEWIDTH;}
+	public int getAbsWidth() {return width*Sprite.SIZE;}
+	public int getAbsHeight() {return height*Sprite.SIZE;}
 	
 	public abstract void draw(SpriteBatch sb,int camX,int camY);
 	public abstract boolean contains(int absx, int absy);

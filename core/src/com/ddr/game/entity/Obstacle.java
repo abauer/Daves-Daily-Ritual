@@ -1,6 +1,7 @@
 package com.ddr.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ddr.game.Sprite;
 import com.ddr.game.state.LV1;
 
 public class Obstacle extends Entity{
@@ -19,7 +20,7 @@ public class Obstacle extends Entity{
 			id = new short[1];
 		for(int i =0; i<width; i++)
 			for(int j = 0; j<height; j++)
-				id[j*width+i]=(short)(tlid+i+j*SHEETWIDTH);
+				id[j*width+i]=(short)(tlid+i+j*Sprite.SIZE);
 	}
 	
 	public Obstacle(int x, int y, int width, int height,int tlid,boolean xoffset, boolean yoffset){
@@ -35,7 +36,7 @@ public class Obstacle extends Entity{
 		this.yoffset = yoffset;
 		for(int i =0; i<width; i++)
 			for(int j = 0; j<height; j++)
-				id[j*width+i]=(short)(tlid+i+j*SHEETWIDTH);
+				id[j*width+i]=(short)(tlid+i+j*Sprite.SIZE);
 	}
 	
 	public void draw(SpriteBatch sb,int camX, int camY) {
@@ -47,12 +48,12 @@ public class Obstacle extends Entity{
 			oy = 16;
 		for(int i =0; i<width; i++)
 			for(int j=0; j<height; j++){
-					sb.draw(LV1.getSprite(Entity.entities,id[j*width+i]),(x+i-camX)*SPRITEWIDTH+ox,(15-1-y-j+camY)*SPRITEWIDTH-oy);
+					sb.draw(Sprite.getSprite(Entity.entities,id[j*width+i]),(x+i-camX)*Sprite.SIZE+ox,(15-1-y-j+camY)*Sprite.SIZE-oy);
 			}
 	}
 	
-	public int getAbsX() {int t = x*SPRITEWIDTH; return (xoffset)?t+SPRITEWIDTH/2 : t;}
-	public int getAbsY() {int t = y*SPRITEWIDTH; return (yoffset)?t+SPRITEWIDTH/2 : t;}
+	public int getAbsX() {int t = x*Sprite.SIZE; return (xoffset)?t+Sprite.SIZE/2 : t;}
+	public int getAbsY() {int t = y*Sprite.SIZE; return (yoffset)?t+Sprite.SIZE/2 : t;}
 	
 	public boolean contains(int absx, int absy){
 		if(absx>=getAbsX() && absx< getAbsX()+getAbsWidth())

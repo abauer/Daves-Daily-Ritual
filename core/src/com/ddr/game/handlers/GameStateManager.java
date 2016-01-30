@@ -19,7 +19,7 @@ public class GameStateManager {
 	public GameStateManager(DavesDailyRitual game){
 		this.game = game;
 		gameStates = new Stack<GameState>();
-		pushState(MENU); //first screen
+		pushState(LV1); //first screen
 	}
 	
 	public DavesDailyRitual game() {return game;}
