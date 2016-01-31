@@ -43,7 +43,7 @@ public class LevelManager {
 	
 	private Wall[] getWalls(int c){
 		switch(c){
-			case 1: return createWallsfromFile(LevelDefs.oneL);
+			case 1: return createWallsfromFile(LevelDefs.oneL,new short[]{1,10,11,79});
 			default: return new Wall[]{new Wall(0,0,10,1,0),new Wall(0,1,1,26,0),new Wall(1,26,6,1,0),new Wall(6,23,1,3,0),new Wall(6,23,10,1,0),
 				new Wall(16,5,1,17,0),new Wall(10,5,6,1,0),new Wall(9,1,1,5,0)};
 		}
@@ -84,23 +84,28 @@ public class LevelManager {
 		return Gdx.audio.newMusic(Gdx.files.internal(s));
 	}
 	
-	private Wall[] createWallsfromFile(short[] f){ //10,11,1
+	private Wall[] createWallsfromFile(short[] f,short[] ignore){ //10,11,1
 		int n = 0;
+		outerloop:
 		for(int i = 0; i<f.length; i++){
-			if(f[i]!=10 && f[i]!=11 && f[i]!=1&& f[i] != 79){
-				n++;
-			}
+			for(int j = 0; j<ignore.length; j++)
+				if(f[i]==ignore[j]){
+					continue outerloop;
+				}
+			n++;
 		}
 		Wall w[] = new Wall[n];
 		n=0;
+		outerloop:
 		for(int i = 0; i<f.length; i++){
-			if(f[i]!=10 && f[i]!=11 && f[i]!=1&& f[i] != 79){
-				w[n]=new Wall(i%LEVELSIZE,i/LEVELSIZE,1,1,0);
-//				System.out.println("new wall ["+i%LEVELSIZE+", "+i/LEVELSIZE+"]");
-				n++;
-			}
+			for(int j=0; j<ignore.length; j++)
+				if(f[i]==ignore[j])
+					continue outerloop;
+			w[n]=new Wall(i%LEVELSIZE,i/LEVELSIZE,1,1,0);
+	//				System.out.println("new wall ["+i%LEVELSIZE+", "+i/LEVELSIZE+"]");
+			n++;
 		}
-//		System.out.println("len: "+w.length);
+	//	System.out.println("len: "+w.length);
 		return w;
 	}
 }
