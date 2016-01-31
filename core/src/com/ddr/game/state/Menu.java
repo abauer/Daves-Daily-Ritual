@@ -28,15 +28,12 @@ public class Menu extends GameState {
 			int x = Gdx.input.getX();
 			int y = Gdx.input.getY();
 			if((x > 210) && (x < 260) && (480-y > 210) && (480-y < 225)){
-				gsm.popState();
+//				gsm.popState();
 				gsm.pushState(GameStateManager.LV1);
-				
+			
+			}
 			if ((x>220) && (x < 270) && (480 - y >180) && (480-y <195)) {
-				System.exit(0);			
-				}
-				
-			
-			
+//				System.exit(0);			
 			}
 			
 		}

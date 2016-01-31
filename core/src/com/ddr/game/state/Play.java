@@ -22,20 +22,20 @@ public class Play extends GameState {
 	
 	public static boolean paused = false;	
 	boolean first = true;
-	public static BitmapFont font9;
-	BitmapFont font18;
+	public static BitmapFont font9 = new BitmapFont();
+//	BitmapFont font18;
 	
 	public Play(GameStateManager gsm){
 		super(gsm);
 		lm = new LevelManager();
 		currentLevel = lm.nextLevel();
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitfont.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 9;
-		font9 = generator.generateFont(parameter); // font size 9 pixels
-		parameter.size = 18;
-		font18 = generator.generateFont(parameter);
-		generator.dispose();
+//		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitfont.TTF"));
+//		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+//		parameter.size = 9;
+//		font9 = generator.generateFont(parameter); // font size 9 pixels
+//		parameter.size = 18;
+//		font18 = generator.generateFont(parameter);
+//		generator.dispose();
 		float r = 156f;
 		float g = 140f;
 		float b = 78f;
