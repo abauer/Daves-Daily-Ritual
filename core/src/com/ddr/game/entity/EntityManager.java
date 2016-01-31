@@ -5,20 +5,24 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.path.AStarPathFinder;
 import com.ddr.game.path.Map;
+import com.ddr.game.path.NodeManager;
 
 public class EntityManager {
 	
 	private ArrayList<Entity> list;
 	Player p;
 	public AStarPathFinder aspf;
-	Map m;
+	NodeManager m;
 	
-	public EntityManager(Map m){
+	public EntityManager(NodeManager m){
 		list = new ArrayList<Entity>();
 		p = new Player(0,0,new short[]{1});
 		list.add(p);
+		
+		
+		
 		this.m = m;
-		aspf = new AStarPathFinder(m, 40, true);
+		aspf = new AStarPathFinder(m, 40);
 	}
 	
 	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z,CoolObject[] c){
@@ -37,7 +41,7 @@ public class EntityManager {
 			list.add(z[i]);
 		for(int i =0; i<c.length; i++)
 			list.add(c[i]);
-		m.init(this);
+		m.fillEntity(this);
 	}
 
 	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){

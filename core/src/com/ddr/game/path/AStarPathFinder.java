@@ -15,14 +15,10 @@ public class AStarPathFinder implements PathFinder {
 	private SortedList open = new SortedList();
 	
 	/** The map being searched */
-	private TileBasedMap map;
+	private NodeManager map;
 	/** The maximum depth of search we're willing to accept before giving up */
 	private int maxSearchDistance;
 	
-	/** The complete set of nodes across the map */
-	private Node[][] nodes;
-	/** True if we allow diaganol movement */
-	private boolean allowDiagMovement;
 	/** The heuristic we're applying to determine which nodes to search first */
 	private AStarHeuristic heuristic;
 	
@@ -33,8 +29,8 @@ public class AStarPathFinder implements PathFinder {
 	 * @param maxSearchDistance The maximum depth we'll search before giving up
 	 * @param allowDiagMovement True if the search should try diaganol movement
 	 */
-	public AStarPathFinder(TileBasedMap map, int maxSearchDistance, boolean allowDiagMovement) {
-		this(map, maxSearchDistance, allowDiagMovement, new ClosestHeuristic());
+	public AStarPathFinder(NodeManager map, int maxSearchDistance) {
+		this(map, maxSearchDistance, new ClosestHeuristic());
 	}
 
 	/**
@@ -45,19 +41,10 @@ public class AStarPathFinder implements PathFinder {
 	 * @param maxSearchDistance The maximum depth we'll search before giving up
 	 * @param allowDiagMovement True if the search should try diaganol movement
 	 */
-	public AStarPathFinder(TileBasedMap map, int maxSearchDistance, 
-						   boolean allowDiagMovement, AStarHeuristic heuristic) {
+	public AStarPathFinder(NodeManager map, int maxSearchDistance, AStarHeuristic heuristic) {
 		this.heuristic = heuristic;
 		this.map = map;
 		this.maxSearchDistance = maxSearchDistance;
-		this.allowDiagMovement = allowDiagMovement;
-		
-		nodes = new Node[map.getWidthInTiles()][map.getHeightInTiles()];
-		for (int x=0;x<map.getWidthInTiles();x++) {
-			for (int y=0;y<map.getHeightInTiles();y++) {
-				nodes[x][y] = new Node(x,y);
-			}
-		}
 	}
 	
 	/**
@@ -66,20 +53,21 @@ public class AStarPathFinder implements PathFinder {
 	public Path findPath(Mover mover, int sx, int sy, int tx, int ty) {
 		// easy first check, if the destination is blocked, we can't get there
 
-		if (map.blocked(mover, tx, ty)) {
-			return null;
-		}
+//		if (map.blocked(mover, tx, ty)) {
+//			System.out.println("destination blocked");
+//			return null;
+//		}
 		
 		// initial state for A*. The closed group is empty. Only the starting
 
 		// tile is in the open list and it'e're already there
-		nodes[sx][sy].cost = 0;
-		nodes[sx][sy].depth = 0;
 		closed.clear();
 		open.clear();
-		open.add(nodes[sx][sy]);
+		Node zombie = map.newPlayerNode(sx, sy);
+		Node target = map.newPlayerNode(tx,ty);
+		open.add(zombie);
 		
-		nodes[tx][ty].parent = null;
+//		nodes[tx][ty].parent = null;
 		
 		// while we haven'n't exceeded our max search depth
 		int maxDepth = 0;
@@ -89,7 +77,7 @@ public class AStarPathFinder implements PathFinder {
 			// be the most likely to be the next step based on our heuristic
 
 			Node current = getFirstInOpen();
-			if (current == nodes[tx][ty]) {
+			if (map.isClosestNode(current,tx,ty)) {
 				break;
 			}
 			
@@ -97,80 +85,60 @@ public class AStarPathFinder implements PathFinder {
 			addToClosed(current);
 			
 			// search through all the neighbours of the current node evaluating
-
+			Node[] neis = current.getNeighbors();
+			for(int i = 0; i<neis.length; i++){
+				int xp = neis[i].x;
+				int yp = neis[i].y;
+			
 			// them as next steps
+				
+//				if (isValidLocation(mover,sx,sy,xp,yp)) {
+					// the cost to get to this node is cost the current plus the movement
 
-			for (int x=-1;x<2;x++) {
-				for (int y=-1;y<2;y++) {
-					// not a neighbour, its the current tile
+					// cost to reach this node. Note that the heursitic value is only used
 
-					if ((x == 0) && (y == 0)) {
-						continue;
-					}
+					// in the sorted open list
+
+					float nextStepCost = current.cost + getMovementCost(mover, current.x, current.y, xp, yp);
+					Node neighbour = neis[i];
+//						map.pathFinderVisited(xp, yp);
 					
-					// if we're not allowing diaganol movement then only 
+					// if the new cost we've determined for this node is lower than 
 
-					// one of x or y can be set
+					// it has been previously makes sure the node hasn'e've
+					// determined that there might have been a better path to get to
 
-					if (!allowDiagMovement) {
-						if ((x != 0) && (y != 0)) {
-							continue;
+					// this node so it needs to be re-evaluated
+
+					if (nextStepCost < neighbour.cost) {
+						if (inOpenList(neighbour)) {
+							removeFromOpen(neighbour);
+						}
+						if (inClosedList(neighbour)) {
+							removeFromClosed(neighbour);
 						}
 					}
 					
-					// determine the location of the neighbour and evaluate it
+					// if the node hasn't already been processed and discarded then
 
-					int xp = x + current.x;
-					int yp = y + current.y;
-					
-					if (isValidLocation(mover,sx,sy,xp,yp)) {
-						// the cost to get to this node is cost the current plus the movement
+					// reset it's cost to our current cost and add it as a next possible
 
-						// cost to reach this node. Note that the heursitic value is only used
+					// step (i.e. to the open list)
 
-						// in the sorted open list
-
-						float nextStepCost = current.cost + getMovementCost(mover, current.x, current.y, xp, yp);
-						Node neighbour = nodes[xp][yp];
-						map.pathFinderVisited(xp, yp);
-						
-						// if the new cost we've determined for this node is lower than 
-
-						// it has been previously makes sure the node hasn'e've
-						// determined that there might have been a better path to get to
-
-						// this node so it needs to be re-evaluated
-
-						if (nextStepCost < neighbour.cost) {
-							if (inOpenList(neighbour)) {
-								removeFromOpen(neighbour);
-							}
-							if (inClosedList(neighbour)) {
-								removeFromClosed(neighbour);
-							}
-						}
-						
-						// if the node hasn't already been processed and discarded then
-
-						// reset it's cost to our current cost and add it as a next possible
-
-						// step (i.e. to the open list)
-
-						if (!inOpenList(neighbour) && !(inClosedList(neighbour))) {
-							neighbour.cost = nextStepCost;
-							neighbour.heuristic = getHeuristicCost(mover, xp, yp, tx, ty);
-							maxDepth = Math.max(maxDepth, neighbour.setParent(current));
-							addToOpen(neighbour);
-						}
+					if (!inOpenList(neighbour) && !(inClosedList(neighbour))) {
+						neighbour.cost = nextStepCost;
+						neighbour.heuristic = getHeuristicCost(mover, xp, yp, tx, ty);
+						maxDepth = Math.max(maxDepth, neighbour.setParent(current));
+						addToOpen(neighbour);
 					}
 				}
 			}
-		}
+//		}
 
 		// since we'e've run out of search 
 		// there was no path. Just return null
 
-		if (nodes[tx][ty].parent == null) {
+		if (target.parent == null) {
 			return null;
 		}
 		
@@ -181,8 +149,7 @@ public class AStarPathFinder implements PathFinder {
 		// to the start recording the nodes on the way.
 
 		Path path = new Path();
-		Node target = nodes[tx][ty];
-		while (target != nodes[sx][sy]) {
+		while (target != zombie) {
 			path.prependStep(target.x, target.y);
 			target = target.parent;
 		}
@@ -269,15 +236,15 @@ public class AStarPathFinder implements PathFinder {
 	 * @param y The y coordinate of the location to check
 	 * @return True if the location is valid for the given mover
 	 */
-	protected boolean isValidLocation(Mover mover, int sx, int sy, int x, int y) {
-		boolean invalid = (x < 0) || (y < 0) || (x >= map.getWidthInTiles()) || (y >= map.getHeightInTiles());
-		
-		if ((!invalid) && ((sx != x) || (sy != y))) {
-			invalid = map.blocked(mover, x, y);
-		}
-		
-		return !invalid;
-	}
+//	protected boolean isValidLocation(Mover mover, int sx, int sy, int x, int y) {
+//		boolean invalid = (x < 0) || (y < 0) || (x >= map.getWidthInTiles()) || (y >= map.getHeightInTiles());
+//		
+//		if ((!invalid) && ((sx != x) || (sy != y))) {
+//			invalid = map.blocked(mover, x, y);
+//		}
+//		
+//		return !invalid;
+//	}
 	
 	/**
 	 * Get the cost to move through a given location
@@ -368,66 +335,6 @@ public class AStarPathFinder implements PathFinder {
 		 */
 		public boolean contains(Object o) {
 			return list.contains(o);
-		}
-	}
-	
-	/**
-	 * A single node in the search graph
-	 */
-	private class Node implements Comparable {
-		/** The x coordinate of the node */
-		private int x;
-		/** The y coordinate of the node */
-		private int y;
-		/** The path cost for this node */
-		private float cost;
-		/** The parent of this node, how we reached it in the search */
-		private Node parent;
-		/** The heuristic cost of this node */
-		private float heuristic;
-		/** The search depth of this node */
-		private int depth;
-		
-		/**
-		 * Create a new node
-		 * 
-		 * @param x The x coordinate of the node
-		 * @param y The y coordinate of the node
-		 */
-		public Node(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-		
-		/**
-		 * Set the parent of this node
-		 * 
-		 * @param parent The parent node which lead us to this node
-		 * @return The depth we have no reached in searching
-		 */
-		public int setParent(Node parent) {
-			depth = parent.depth + 1;
-			this.parent = parent;
-			
-			return depth;
-		}
-		
-		/**
-		 * @see Comparable#compareTo(Object)
-		 */
-		public int compareTo(Object other) {
-			Node o = (Node) other;
-			
-			float f = heuristic + cost;
-			float of = o.heuristic + o.cost;
-			
-			if (f < of) {
-				return -1;
-			} else if (f > of) {
-				return 1;
-			} else {
-				return 0;
-			}
 		}
 	}
 }

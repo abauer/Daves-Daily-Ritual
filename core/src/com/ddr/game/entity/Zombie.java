@@ -3,9 +3,8 @@ package com.ddr.game.entity;
 import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.handlers.GameStateManager;
 import com.ddr.game.path.AStarPathFinder;
-import com.ddr.game.path.Map;
 import com.ddr.game.path.Mover;
-import com.ddr.game.path.Path;
+import com.ddr.game.path.NodeManager;
 import com.ddr.game.path.Path.Step;
 
 public class Zombie extends Player implements Mover{
@@ -66,7 +65,7 @@ public class Zombie extends Player implements Mover{
 		}
 	}
 	
-	public int[] askMove(AStarPathFinder aspf,Map m){//better selection of 8 dir and then do frames somehow and detection of objects
+	public int[] askMove(AStarPathFinder aspf,NodeManager m){//better selection of 8 dir and then do frames somehow and detection of objects
 		int vector[] = new int[2];
 		vector[0]=vector[1]=0;
 //		Path p = aspf.findPath(this, getX()-m.x, getY()-m.y, target.getX()-m.x, target.getY()-m.y);
