@@ -107,7 +107,7 @@ public class Zombie extends Player implements Mover{
 			vector[1]=-yvel;
 		}
 		
-		System.out.println("diff: ["+dx+", "+dy+"]");
+//		System.out.println("diff: ["+dx+", "+dy+"]");
 //		System.out.println("shift: ["+(dx<<2)+", "+dy+"]");
 		
 //		if(target.absx>absx)
@@ -130,7 +130,7 @@ public class Zombie extends Player implements Mover{
 		
 		
 		
-		System.out.println("vec: ["+vector[0]+", "+vector[1]+"]");
+//		System.out.println("vec: ["+vector[0]+", "+vector[1]+"]");
 		
 		
 		

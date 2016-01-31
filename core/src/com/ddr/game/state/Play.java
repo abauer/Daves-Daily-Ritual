@@ -29,10 +29,10 @@ public class Play extends GameState {
 //	private float maxcamvel = 2.0f;
 	
 	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
-	private boolean paused = false;	
+	public static boolean paused = false;	
 	boolean first = true;
 	Sound sound;
-	BitmapFont font9;
+	public static BitmapFont font9;
 	BitmapFont font18;
 	
 	public Play(GameStateManager gsm){
@@ -46,8 +46,20 @@ public class Play extends GameState {
 		parameter.size = 18;
 		font18 = generator.generateFont(parameter);
 		generator.dispose();
-		font18.setColor(1f, 0f, 0f, 1f);
+		float r = 156f;
+		float g = 140f;
+		float b = 78f;
+		font9.setColor(r/255.0f, g/255.0f, b/255.0f, 1f);
 //		sound = Gdx.audio.newSound(Gdx.files.internal("door.wav"));
+	}
+	
+	public void handleSpace(float dt){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			gsm.pushState(GameStateManager.PAUSE);
+			return;
+        }
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+			paused = false;
 	}
 	
 	public void handleInput(float dt){
@@ -174,6 +186,9 @@ public class Play extends GameState {
 			handleInput(dt);
 			currentLevel.em.tick();
 		}
+		else{
+			handleSpace(dt);
+		}
 		if(first){
 //			sound.play();
 			first = false;
@@ -192,8 +207,7 @@ public class Play extends GameState {
 			}
 		currentLevel.drawEntities(sb, abscamX, abscamY);
 		
-		font9.draw(sb, "Hello Worldw", 10, 10);
-		font18.draw(sb, "Life is good", 10, 480-20);
+//		font18.draw(sb, "Life is good", 10, 480-20);
 		
 		sb.end();
 	}

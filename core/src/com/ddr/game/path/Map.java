@@ -19,17 +19,9 @@ public class Map implements TileBasedMap{
 	
 	public void init(EntityManager eme){
 		this.em = eme;
-		int count = 0;
-		for(int i =0; i<em.getList().size(); i++){
-			Entity e = em.getList().get(i);
-			if(e.getType()!=3){
-				count++;
-			}
-		}
-		ecks = new int[count];
-		wye = new int[count];
-		count=0;
-		for(int i =0; i<em.getList().size(); i++){
+		ecks = new int[em.getList().size()-1];
+		wye = new int[em.getList().size()-1];
+		for(int i =0; i<ecks.length; i++){
 			Entity e = em.getList().get(i);
 			if(e.getType()!=1&&e.getType()!=3){
 				ecks[i] = e.getX();

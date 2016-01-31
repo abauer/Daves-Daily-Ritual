@@ -59,8 +59,8 @@ public class LevelManager {
 	
 	private CoolObject[] getCoolObjects(int c){
 		switch(c){
-			case 1: return new CoolObject[] {};//{new CoolObject(4,20,1,1,81)};
-			default: return new CoolObject[] {new CoolObject(4,20,1,1,81)};
+			case 1: return new CoolObject[] {new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space")};
+			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space")};
 		}
 	}
 	
