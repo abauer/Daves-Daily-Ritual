@@ -14,8 +14,8 @@ public class Play extends GameState {
 	private Level currentLevel;
 	private int abscamX = 0;//90*32;
 	private int abscamY = 0;//90*32;
-	private int camX = 0;
-	private int camY = 0;
+	private int camX = 5;
+	private int camY = 10;
 	
 	private float camxaccel = 0f;
 	private float camyaccel = 0f;
@@ -164,7 +164,7 @@ public class Play extends GameState {
 		for(int i = 0; i <22; i++)
 			for(int j = 0; j<17; j++){
 				int id = currentLevel.getId(camX-1+i,camY-1+j);
-				sb.draw(Sprite.getSprite(Sprite.tiles,id),(i-1)*Sprite.SIZE-abscamX%Sprite.SIZE,(15-j)*Sprite.SIZE+abscamY%Sprite.SIZE);
+				sb.draw(Sprite.getSprite(Sprite.newsprite,id),(i-1)*Sprite.SIZE-abscamX%Sprite.SIZE,(15-j)*Sprite.SIZE+abscamY%Sprite.SIZE);
 			}
 		currentLevel.drawEntities(sb, abscamX, abscamY);
 		sb.end();

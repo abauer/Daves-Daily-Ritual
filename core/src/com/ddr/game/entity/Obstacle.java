@@ -58,7 +58,7 @@ public class Obstacle extends Entity{
 			oy = 16;
 		for(int i =0; i<width; i++)
 			for(int j=0; j<height; j++){
-					sb.draw(Sprite.getSprite(Sprite.cities,id[j*width+i]),(x+i)*Sprite.SIZE+ox-abscamx,(15-1-y-j)*Sprite.SIZE-oy+abscamy);
+					sb.draw(Sprite.getSprite(Sprite.newsprite,id[j*width+i]),(x+i)*Sprite.SIZE+ox-abscamx,(15-1-y-j)*Sprite.SIZE-oy+abscamy);
 			}
 	}
 	
