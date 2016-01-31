@@ -2,6 +2,8 @@ package com.ddr.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.ddr.game.Level;
 import com.ddr.game.LevelManager;
@@ -25,11 +27,14 @@ public class Play extends GameState {
 //	private float maxcamvel = 2.0f;
 	
 	private boolean paused = false;	
+	boolean first = true;
+	Sound sound;
 	
 	public Play(GameStateManager gsm){
 		super(gsm);
 		lm = new LevelManager();
 		currentLevel = lm.nextLevel();
+//		sound = Gdx.audio.newSound(Gdx.files.internal("door.wav"));
 	}
 	
 	public void handleInput(float dt){
@@ -155,6 +160,10 @@ public class Play extends GameState {
 		if(!paused){
 			handleInput(dt);
 			currentLevel.em.tick();
+		}
+		if(first){
+//			sound.play();
+			first = false;
 		}
 	}
 	

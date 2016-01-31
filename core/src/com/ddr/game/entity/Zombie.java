@@ -87,34 +87,52 @@ public class Zombie extends Player implements Mover{
 		int dx = (int) (target.absx-absx);
 		int dy = (int) (target.absy-absy);
 		
-//		if(dx>0){
-//			vector[0]=xvel;
-//		}
-//		else if(dx<0){
-//			vector[0]=-xvel;
-//		}
-//		if(dy>0){
-//			vector[1]=yvel;
-//		}
-//		else if(dy<0){
-//			vector[1]=-yvel;
-//		}
 		
-		if(dx<<2 <= dy){
+		if(Math.abs(dx) <= 2){
 			vector[0]=0;
 		}
-		else if(dy<<2 <= dx){
+		else if(dx>0){
+			vector[0]=xvel;
+		}
+		else if(dx<0){
+			vector[0]=-xvel;
+		}
+		if(Math.abs(dy) <= 2){
 			vector[1]=0;
 		}
-		
-		if(target.absx>absx)
-			vector[0]=xvel;
-		else if(target.absx<absx)
-			vector[0]=-xvel;
-		if(target.absy>absy)
+		else if(dy>0){
 			vector[1]=yvel;
-		else if(target.absy<absy)
+		}
+		else if(dy<0){
 			vector[1]=-yvel;
+		}
+		
+		System.out.println("diff: ["+dx+", "+dy+"]");
+//		System.out.println("shift: ["+(dx<<2)+", "+dy+"]");
+		
+//		if(target.absx>absx)
+//			vector[0]=xvel;
+//		else if(target.absx<absx)
+//			vector[0]=-xvel;
+//		if(target.absy>absy)
+//			vector[1]=yvel;
+//		else if(target.absy<absy)
+//			vector[1]=-yvel;
+		
+//		
+//		else if(dy<<4 <= dx){
+//			vector[1]=0;
+//		}
+		
+//		if(dx <= 2){
+//			vector[0]=0;
+//		}
+		
+		
+		
+		System.out.println("vec: ["+vector[0]+", "+vector[1]+"]");
+		
+		
 		
 //		System.out.println("asking ["+value[0]+", "+value[1]+"]");
 		return vector;
