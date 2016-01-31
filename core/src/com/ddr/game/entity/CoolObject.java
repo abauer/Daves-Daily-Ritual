@@ -31,6 +31,7 @@ public class CoolObject extends Obstacle{
 			else{// always occurs, after first interact
 				Play.font9.draw(sb, objectText, 640-5*32, 480-5);
 			}
+
 			//progressbar gets drawn
 //			float progress = framcount/200;
 //			int frame = 0;
@@ -39,7 +40,7 @@ public class CoolObject extends Obstacle{
 //			
 //			sb.draw(Sprite.getSprite(Sprite.newsprite,87+frame),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
 			
-//			Play.font9.draw(sb, framecount+" 200", 640-5*32, 480-15);
+			Play.font9.draw(sb, framecount+" 200", 640-5*32, 480-25);
 		}
 	}
 	
