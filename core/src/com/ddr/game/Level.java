@@ -3,9 +3,10 @@ package com.ddr.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.entity.EntityManager;
 import com.ddr.game.entity.Player;
+import com.ddr.game.entity.Wall;
+import com.ddr.game.entity.Zombie;
 
 public class Level {
-	public static Level ONE = new Level(LevelDefs.one,32);
 	
 	private short id[];
 	public short size = 1;
@@ -19,12 +20,12 @@ public class Level {
 		}
 	}
 	
-	public Level(short x[],int size){
+	public Level(short x[],int size,Player p, Wall[] w, Zombie[] z){
 		this.size = (short) size;
 		if(size<1)
 			this.size = (short)(size = 1);
 		em = new EntityManager();
-		em.loadLevel(LevelDefs.oneP,LevelDefs.oneE);
+		em.loadLevel(p,w,z);
 		id = new short[size*size];
 		for(int i = 0; i<size*size; i++){
 			if(i<x.length)

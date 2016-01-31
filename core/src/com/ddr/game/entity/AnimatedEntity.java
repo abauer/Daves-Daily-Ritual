@@ -8,6 +8,14 @@ public class AnimatedEntity extends Obstacle{
 	int framecount;
 	int maxframes;
 	boolean animate = false;
+	
+	public AnimatedEntity(AnimatedEntity e){
+		super(e);
+		this.framecount = e.framecount;
+		this.maxframes = e.maxframes;
+		this.animate = e.animate;
+	}
+	
 	public AnimatedEntity(int x, int y,short[] tlid,int frames){
 		super(x,y,1,1,tlid[0]);
 		framecount=0;

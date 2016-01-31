@@ -11,25 +11,28 @@ public class EntityManager {
 	
 	public EntityManager(){
 		list = new ArrayList<Entity>();
-		p = new Player(0,0,0,1,1);
+		p = new Player(0,0,new short[]{1});
 		list.add(p);
 	}
 	
-	public void loadLevelOne(Player p){
-		list.remove(this.p);
-		this.p = p;
-		list.add(p);
-		list.add(new Obstacle(2, 2, 2, 2, 25,false,true));
-	}
+//	public void loadLevelOne(Player p){
+//		list.remove(this.p);
+//		this.p = p;
+//		list.add(p);
+//		list.add(new Obstacle(2, 2, 2, 2, 25,false,true));
+//	}
 	
-	public void loadLevel(Player p,Entity e[]){
+	public void loadLevel(Player p,Wall w[],Zombie[] z){
 		for(int i =0; i<list.size(); i+=0){
 			list.remove(0);
 		}
 		this.p=p;
-		list.add(p);
-		for(int i =0; i<e.length; i++){
-			list.add(e[i]);
+		list.add(this.p);
+		for(int i =0; i<w.length; i++){
+			list.add(w[i]);
+		}
+		for(int i =0; i<z.length; i++){
+			list.add(z[i]);
 		}
 	}
 
@@ -53,37 +56,66 @@ public class EntityManager {
 		return p;
 	}
 	
-	public int moveRight(int dis){
+	public void tick(){
+		for(int i = 0; i<list.size(); i++){
+			if(list.get(i).getType() == 1){
+				Zombie z = (Zombie) list.get(i);
+				z.move(moveZombie(z,z.askMove()));
+			}
+		}
+	}
+	private int[] moveZombie(Zombie z, int[] a){
+		for(int i = 0; i<list.size(); i++){
+			Entity e = list.get(i);
+			if(e.equals(p)||e.equals(z)){
+//				System.out.println("skipped object ");
+				continue;
+			}
+			if(e.type==1)
+//				System.out.print("ZOMBIE: ");
+//			System.out.println("e["+e.getAbsX()+", "+e.getAbsY()+", "+e.getAbsWidth()+", "+e.getAbsHeight()+
+//							"] z "+z.getAbsX()+", "+z.getAbsY()+", "+z.getAbsWidth()+", "+z.getAbsHeight());
+			if(e.entityContainsRect(z.getAbsX()+a[0], z.getAbsY(), z.getAbsWidth(), z.getAbsHeight())){
+				a[0]=0;
+			}
+			if(e.entityContainsRect(z.getAbsX(), z.getAbsY()+a[1], z.getAbsWidth(), z.getAbsHeight())){
+				a[1]=0;
+			}
+		}	
+		return a;
+	}
+	
+	public int moveRight(){
 		for(int i = 0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX()+dis, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).entityContainsRect(p.getAbsX()+p.getXvel(), p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
 					return -1;
 		}
-		return p.moveRight(dis);
+		return p.moveRight();
 	}
-	public int moveLeft(int dis){
+	public int moveLeft(){
 		for(int i =0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX()-dis, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).entityContainsRect(p.getAbsX()-p.getXvel(), p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
 						return -1;
 		}
-		return p.moveLeft(dis);
+		return p.moveLeft();
 	}
-	public int moveUp(int dis){
+	public int moveUp(){
 		for(int i =0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX(), p.getAbsY()-dis, p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).entityContainsRect(p.getAbsX(), p.getAbsY()-p.getYvel(), p.getAbsWidth(), p.getAbsHeight()))
 						return -1;
 		}
-		return p.moveUp(dis);
+		return p.moveUp();
 	}
-	public int moveDown(int dis){
+	public int moveDown(){
 		for(int i =0; i<list.size(); i++){
 			if(!list.get(i).equals(p))
-				if(list.get(i).contains(p.getAbsX(), p.getAbsY()+dis, p.getAbsWidth(), p.getAbsHeight()))
+				if(list.get(i).entityContainsRect(p.getAbsX(), p.getAbsY()+p.getYvel(), p.getAbsWidth(), p.getAbsHeight()))
 						return -1;
 		}
-		return p.moveDown(dis);
+		return p.moveDown();
 	}
 	
 	

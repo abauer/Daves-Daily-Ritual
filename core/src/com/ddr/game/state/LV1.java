@@ -3,14 +3,17 @@ package com.ddr.game.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.Level;
+import com.ddr.game.LevelDefs;
 import com.ddr.game.Sprite;
+import com.ddr.game.entity.Player;
+import com.ddr.game.entity.Wall;
+import com.ddr.game.entity.Zombie;
 import com.ddr.game.handlers.GameStateManager;
 
 public class LV1 extends GameState {
 	
-	private Level currentLevel = Level.ONE;
+	private Level currentLevel;
 	private int abscamX = 0;//90*32;
 	private int abscamY = 0;//90*32;
 	private int camX = 0;
@@ -21,28 +24,40 @@ public class LV1 extends GameState {
 	private float maxcamaccel = 1.0f;
 	private float camxvel = 0f;
 	private float camyvel = 0f;
+	private float maxcamvel = 2.0f;
+	
+	private Player oneP;
+	private Wall[] oneW;
+	private Zombie[] oneZ;
+	
+	
 	
 	public LV1(GameStateManager gsm){
 		super(gsm);
+		oneP = new Player(1,1,new short[]{10,2,36,16});
+		oneW = new Wall[] {new Wall(0,0,10,1,0),new Wall(0,1,1,26,0),new Wall(1,26,6,1,0),new Wall(6,23,1,3,0),new Wall(6,23,10,1,0),
+							new Wall(16,5,1,17,0),new Wall(10,5,6,1,0),new Wall(9,1,1,5,0)};
+		oneZ = new Zombie[] {new Zombie(7,17,new short[]{23},oneP),new Zombie(2,17,new short[]{23},oneP)};
+		currentLevel = new Level(LevelDefs.oneL,32,oneP,oneW,oneZ);
 	}
 	
 	public void handleInput(float dt){
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)&&dt==DavesDailyRitual.BIGSTEP){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 			gsm.pushState(GameStateManager.PAUSE);
 			return;
         }
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			currentLevel.em.moveLeft(2);
+			currentLevel.em.moveLeft();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-        	currentLevel.em.moveRight(2);
+        	currentLevel.em.moveRight();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
 
-        	currentLevel.em.moveUp(2);
+        	currentLevel.em.moveUp();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-        	currentLevel.em.moveDown(2);
+        	currentLevel.em.moveDown();
         }
         updateCam();
 	}
@@ -55,39 +70,47 @@ public class LV1 extends GameState {
 		
 		
 		if(abscamX<x){//left
-				camxaccel+=.005;
+				camxaccel+=.033;
+				if(camxaccel<0)
+					camxaccel=0;
 		}
 		else if(abscamX>x){
-				camxaccel-=.005;
+				camxaccel-=.033;
+				if(camxaccel>0)
+					camxaccel=0;
 //				System.out.println("here");
 		}
 		if(abscamY<y){//up
-				camyaccel+=.005;
+				camyaccel+=.033;
+				if(camyaccel<0)
+					camyaccel=0;
 		}
 		else if(abscamY>y){//down
-				camyaccel-=.005;
+				camyaccel-=.033;
+				if(camyaccel>0)
+					camyaccel=0;
 		}
     	
-		if(camxaccel>=1.0*maxcamaccel)
-			camxaccel=(float) (1.0*maxcamaccel);
-		if(camyaccel>=1.0*maxcamaccel)
-			camyaccel=(float) (1.0*maxcamaccel);
-		if(camxaccel<=-1.0*maxcamaccel)
-			camxaccel=(float) (-1.0*maxcamaccel);
+		if(camxaccel>=maxcamaccel)
+			camxaccel=maxcamaccel;
+		if(camyaccel>=maxcamaccel)
+			camyaccel=maxcamaccel;
+		if(camxaccel<=-maxcamaccel)
+			camxaccel=-maxcamaccel;
 		if(camyaccel<=-1.0*maxcamaccel)
-			camyaccel=(float) (-1.0*maxcamaccel);
+			camyaccel=-maxcamaccel;
 		
 		camxvel += camxaccel;
 		camyvel += camyaccel;
 		
-		if(camxvel>=1.0)
-			camxvel = (float) 1.0;
-		if(camyvel>=1.0)
-			camyvel = (float) 1.0;
-		if(camxvel<=-1.0)
-			camxvel = (float) -1.0;
-		if(camyvel<=-1.0)
-			camyvel = (float) -1.0;
+		if(camxvel>=maxcamvel)
+			camxvel = maxcamvel;
+		if(camyvel>=maxcamvel)
+			camyvel = maxcamvel;
+		if(camxvel<=-maxcamvel)
+			camxvel = -maxcamvel;
+		if(camyvel<=-maxcamvel)
+			camyvel = -maxcamvel;
 		
 //		System.out.println("acce: ["+camxaccel*-1+", "+camyaccel+"] vel: "+camxvel+", "+camyvel+"");
 		
@@ -129,6 +152,7 @@ public class LV1 extends GameState {
 	
 	public void update(float dt){
 		handleInput(dt);
+		currentLevel.em.tick();
 	}
 	
 	public void render(){

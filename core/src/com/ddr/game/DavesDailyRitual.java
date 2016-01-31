@@ -17,11 +17,10 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	public static int SCALE = 1;
 	public static String TITLE = "Daves Daily Ritual";
 	
-	public static final float STEP = 1/180f;
-	public static final float BIGSTEP = 1/60f;
+	public static final float STEP = 1/60f;
 	private float accum;
 	private int count =0;
-	private GameStateManager gsm;
+	public static GameStateManager gsm;
 	
 	
 	public OrthographicCamera getCamera(){return cam;}
@@ -40,14 +39,11 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	@Override
 	public void render () {
 		accum += Gdx.graphics.getDeltaTime();
-		while(accum>=BIGSTEP){
-			accum-= BIGSTEP;
+		while(accum>=STEP){
+			accum-= STEP;
 			count++;
-			gsm.update(BIGSTEP);
-			gsm.render();
-		}
-		if(accum>=STEP){
 			gsm.update(STEP);
+			gsm.render();
 		}
 //		Gdx.gl.glClearColor(0, 0, 0, 1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

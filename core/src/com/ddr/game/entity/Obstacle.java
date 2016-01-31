@@ -8,6 +8,16 @@ public class Obstacle extends Entity{
 	protected boolean xoffset = false;
 	protected boolean yoffset = false;
 	
+	public Obstacle(Obstacle e){
+		this.x = e.x;
+		this.y = e.y;
+		this.width = e.width;
+		this.height = e.height;
+		this.id = e.id;
+		this.xoffset = e.xoffset;
+		this.yoffset = e.yoffset;
+	}
+	
 	public Obstacle(int x, int y, int width, int height,int tlid){
 		this.x = x;
 		this.y = y;
@@ -54,20 +64,22 @@ public class Obstacle extends Entity{
 	public int getAbsX() {int t = x*Sprite.SIZE; return (xoffset)?t+Sprite.SIZE/2 : t;}
 	public int getAbsY() {int t = y*Sprite.SIZE; return (yoffset)?t+Sprite.SIZE/2 : t;}
 	
-	public boolean contains(int absx, int absy){
-		if(absx>getAbsX() && absx< getAbsX()+getAbsWidth())
-			if(absy>getAbsY() && absy< getAbsY()+getAbsHeight())
-				return true;
-		return false;
+	public boolean entityContainsPoint(int absx, int absy){
+		return (absx>= getAbsX()&&
+				absx< getAbsX()+getAbsWidth()&&
+				absy>= getAbsY()&&
+				absy< getAbsY()+getAbsHeight());
 	}
 	
-	public boolean contains(int absx, int absy, int abswidth, int absheight){
-		return (contains(absx,absy)||contains(absx+abswidth,absy)||
-				contains(absx,absy+absheight)||contains(absx+abswidth,absy+absheight));
+	public boolean entityContainsRect(int absx, int absy, int abswidth, int absheight){
+		return (entityContainsPoint(absx,absy)||
+				entityContainsPoint(absx+abswidth,absy)||
+				entityContainsPoint(absx,absy+absheight)||
+				entityContainsPoint(absx+abswidth,absy+absheight));
 	}
 	
-	public boolean contains(Entity e){
-		return contains(e.getAbsX(),e.getAbsY(),e.getAbsWidth(),e.getAbsHeight());
+	public boolean entityContainsEntity(Entity e){
+		return entityContainsRect(e.getAbsX(),e.getAbsY(),e.getAbsWidth(),e.getAbsHeight());
 	}
 
 }

@@ -4,7 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.Sprite;
 
 public class Wall extends Obstacle{
-
+	
+	public Wall(Wall w){
+		super(w);
+	}
+	
 	public Wall(int x, int y, int width, int height, int tlid) {
 		super(x, y, width, height, tlid);
 		id=new short[1];

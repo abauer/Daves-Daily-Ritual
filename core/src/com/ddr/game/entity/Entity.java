@@ -9,8 +9,10 @@ public abstract class Entity {
 	protected int width;
 	protected int height;
 	protected short id[];
+	protected int type  = 0;
 	
 	public Entity(){}
+	public Entity(Entity e){}
 	
 	public int getX() {return x;}
 	public int getY() {return y;}
@@ -20,9 +22,10 @@ public abstract class Entity {
 	public int getHeight() {return height;}
 	public int getAbsWidth() {return width*Sprite.SIZE;}
 	public int getAbsHeight() {return height*Sprite.SIZE;}
+	public int getType() {return type;}
 	
 	public abstract void draw(SpriteBatch sb,int camX,int camY);
-	public abstract boolean contains(int absx, int absy);
-	public abstract boolean contains(int absx, int absy, int abswidth, int absheight);
-	public abstract boolean contains(Entity e);
+	public abstract boolean entityContainsPoint(int absx, int absy);
+	public abstract boolean entityContainsRect(int absx, int absy, int abswidth, int absheight);
+	public abstract boolean entityContainsEntity(Entity e);
 }
