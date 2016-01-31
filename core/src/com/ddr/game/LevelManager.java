@@ -8,7 +8,6 @@ import com.ddr.game.entity.Zombie;
 
 public class LevelManager {
 	
-	
 	private final int LEVELSIZE=64;
 	private int count;
 	Player p;
@@ -24,7 +23,7 @@ public class LevelManager {
 	public Level nextLevel(int count){
 		p = getPlayer(count);
 		switch(count){
-			case 1:return new Level(LevelDefs.oneL,LEVELSIZE,p,getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
+			case 1:return new Level(LevelDefs.oneL,LEVELSIZE,p,18,15,17,37,getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
 			default: return nextLevel(1);
 		}
 	}

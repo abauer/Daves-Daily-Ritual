@@ -3,24 +3,23 @@ package com.ddr.game.entity;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ddr.game.path.AStarPathFinder;
+import com.ddr.game.path.Map;
 
 public class EntityManager {
 	
 	private ArrayList<Entity> list;
 	Player p;
+	public AStarPathFinder aspf;
+	Map m;
 	
-	public EntityManager(){
+	public EntityManager(Map m){
 		list = new ArrayList<Entity>();
 		p = new Player(0,0,new short[]{1});
 		list.add(p);
+		this.m = m;
+		aspf = new AStarPathFinder(m, 25, true);
 	}
-	
-//	public void loadLevelOne(Player p){
-//		list.remove(this.p);
-//		this.p = p;
-//		list.add(p);
-//		list.add(new Obstacle(2, 2, 2, 2, 25,false,true));
-//	}
 	
 	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z,CoolObject[] c){
 		for(int i =0; i<list.size(); i+=0){
@@ -38,6 +37,7 @@ public class EntityManager {
 			list.add(z[i]);
 		for(int i =0; i<c.length; i++)
 			list.add(c[i]);
+		m.init(this);
 	}
 
 	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){
@@ -162,5 +162,9 @@ public class EntityManager {
 			}
 		}	
 		p.move(vector);
-	}	
+	}
+	
+	public ArrayList<Entity> getList(){
+		return list;
+	}
 }

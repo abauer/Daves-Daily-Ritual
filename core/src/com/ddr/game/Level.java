@@ -7,31 +7,34 @@ import com.ddr.game.entity.Obstacle;
 import com.ddr.game.entity.Player;
 import com.ddr.game.entity.Wall;
 import com.ddr.game.entity.Zombie;
+import com.ddr.game.path.Map;
 
 public class Level {
 	
 	private short id[];
 	public short size = 1;
 	public EntityManager em;
+	public Map m;
+//	public Level(){
+//		em = new EntityManager();
+//		id = new short[size*size];
+//		for(int i = 0; i<size*size; i++){
+//			id[i]=(short) (i%(19*19));
+//		}
+//	}
 	
-	public Level(){
-		em = new EntityManager();
-		id = new short[size*size];
-		for(int i = 0; i<size*size; i++){
-			id[i]=(short) (i%(19*19));
-		}
-	}
-	
-	public Level(short x[],int size,Player p, Wall[] w,Obstacle[] o, Zombie[] z,CoolObject[] c){
+	public Level(short ids[],int size,Player p, int x, int y, int width, int height,
+			Wall[] w,Obstacle[] o, Zombie[] z,CoolObject[] c){
 		this.size = (short) size;
 		if(size<1)
 			this.size = (short)(size = 1);
-		em = new EntityManager();
+		m = new Map(x,y,width,height);
+		em = new EntityManager(m);
 		em.loadLevel(p,w,o,z,c);
 		id = new short[size*size];
 		for(int i = 0; i<size*size; i++){
-			if(i<x.length)
-				id[i]=x[i];
+			if(i<ids.length)
+				id[i]=ids[i];
 			else
 				id[i]=19;
 		}

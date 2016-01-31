@@ -19,6 +19,7 @@ public class Player extends Obstacle {
 		this.absx = p.absx;
 		this.absy = p.absy;
 		this.maxframes = p.maxframes;
+		this.type = p.type;
 	}
 	
 	public Player(int x, int y, short[] tlid) {
@@ -27,14 +28,7 @@ public class Player extends Obstacle {
 		absy = y*Sprite.SIZE;
 		id=tlid;
 		this.maxframes = Math.max(1,tlid.length);
-	}
-	
-	public Player(int x, int y, short[] tlid,boolean xoffset, boolean yoffset){
-		super(x, y, 1, 1, tlid[0]);
-		absx = x*Sprite.SIZE;
-		absy = y*Sprite.SIZE;
-		id=tlid;
-		this.maxframes = Math.max(1,tlid.length);
+		this.type = 3;
 	}
 	
 	public void draw(SpriteBatch sb,int abscamx,int abscamy){
