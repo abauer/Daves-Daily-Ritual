@@ -5,6 +5,8 @@ import com.ddr.game.entity.Obstacle;
 import com.ddr.game.entity.Player;
 import com.ddr.game.entity.Wall;
 import com.ddr.game.entity.Zombie;
+import com.ddr.game.path.Node;
+import com.ddr.game.path.NodeManager;
 
 public class LevelManager {
 	
@@ -23,7 +25,7 @@ public class LevelManager {
 	public Level nextLevel(int count){
 		p = getPlayer(count);
 		switch(count){
-			case 1:return new Level(LevelDefs.oneL,LEVELSIZE,p,18,15,17,37,getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
+/*18,15,17,37*/	case 1:return new Level(LevelDefs.oneL,LEVELSIZE,p,getNodes(count),getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
 			default: return nextLevel(1);
 		}
 	}
@@ -31,6 +33,7 @@ public class LevelManager {
 	private Player getPlayer(int c){
 		switch(c){
 			case 1: return new Player(23,45,new short[]{100,101,102,103,104,105,106,107});
+			//x,y frames
 			default: return new Player(1,1,new short[]{10,2,36,16});
 		}
 	}
@@ -50,9 +53,17 @@ public class LevelManager {
 		}
 	}
 	
+	private NodeManager getNodes(int c){
+		switch(c){
+			case 1: return new NodeManager(new Node[]{}, new int[][]{{},{}});
+			default: return new NodeManager(new Node[]{}, new int[][]{{},{}});
+		}
+	}
+	
 	private Zombie[] getZombies(int c){
 		switch(c){
 			case 1: return new Zombie[] {new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p),new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
+			//x,y,frames, p
 			default: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
 		}
 	}
@@ -60,6 +71,7 @@ public class LevelManager {
 	private CoolObject[] getCoolObjects(int c){
 		switch(c){
 			case 1: return new CoolObject[] {new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space")};
+			//x,y,w,h,
 			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space")};
 		}
 	}

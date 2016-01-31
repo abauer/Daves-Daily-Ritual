@@ -50,7 +50,7 @@ public class Play extends GameState {
 		float g = 140f;
 		float b = 78f;
 		font9.setColor(r/255.0f, g/255.0f, b/255.0f, 1f);
-//		sound = Gdx.audio.newSound(Gdx.files.internal("door.wav"));
+		sound = Gdx.audio.newSound(Gdx.files.internal("door.mp3"));
 	}
 	
 	public void handleSpace(float dt){
@@ -190,7 +190,7 @@ public class Play extends GameState {
 			handleSpace(dt);
 		}
 		if(first){
-//			sound.play();
+			sound.play();
 			first = false;
 		}
 	}

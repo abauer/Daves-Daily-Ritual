@@ -8,6 +8,7 @@ import com.ddr.game.entity.Player;
 import com.ddr.game.entity.Wall;
 import com.ddr.game.entity.Zombie;
 import com.ddr.game.path.Map;
+import com.ddr.game.path.NodeManager;
 
 public class Level {
 	
@@ -23,12 +24,11 @@ public class Level {
 //		}
 //	}
 	
-	public Level(short ids[],int size,Player p, int x, int y, int width, int height,
+	public Level(short ids[],int size,Player p, NodeManager m,
 			Wall[] w,Obstacle[] o, Zombie[] z,CoolObject[] c){
 		this.size = (short) size;
 		if(size<1)
 			this.size = (short)(size = 1);
-		m = new Map(x,y,width,height);
 		em = new EntityManager(m);
 		em.loadLevel(p,w,o,z,c);
 		id = new short[size*size];
