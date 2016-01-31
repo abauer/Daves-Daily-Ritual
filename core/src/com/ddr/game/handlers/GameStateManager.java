@@ -5,7 +5,7 @@ import java.util.Stack;
 import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.state.GameOver;
 import com.ddr.game.state.GameState;
-import com.ddr.game.state.LV1;
+import com.ddr.game.state.Play;
 import com.ddr.game.state.Menu;
 import com.ddr.game.state.Pause;
 
@@ -39,7 +39,7 @@ public class GameStateManager {
 	}
 	
 	private GameState getState(int state){
-		if(state == LV1) return new LV1(this);
+		if(state == LV1) return new Play(this);
 		if(state == MENU) return new Menu(this);
 		if(state == PAUSE) return new Pause(this);
 		if(state == GOVER) return new GameOver(this);

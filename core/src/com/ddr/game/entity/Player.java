@@ -68,4 +68,7 @@ public class Player extends Obstacle {
 	public int getAbsY() {return absy;}
 	public int getXvel() {return xvel;}
 	public int getYvel() {return yvel;}
+	
+	public int getAbsWidth() {return 24;}
+	public int getAbsHeight() {return 24;}
 }

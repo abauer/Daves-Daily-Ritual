@@ -22,12 +22,14 @@ public class EntityManager {
 //		list.add(new Obstacle(2, 2, 2, 2, 25,false,true));
 //	}
 	
-	public void loadLevel(Player p,Wall w[],Zombie[] z){
+	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z){
 		for(int i =0; i<list.size(); i+=0){
 			list.remove(0);
 		}
 		this.p=p;
 		list.add(this.p);
+		for(int i =0; i<o.length; i++)
+			list.add(o[i]);
 		for(int i =0; i<w.length; i++){
 			list.add(w[i]);
 		}
