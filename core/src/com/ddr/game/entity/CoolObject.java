@@ -1,7 +1,8 @@
 package com.ddr.game.entity;
 
+import com.badlogic.gdx.Audio;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ddr.game.Sprite;
 import com.ddr.game.state.Play;
 
 public class CoolObject extends Obstacle{
@@ -11,13 +12,15 @@ public class CoolObject extends Obstacle{
 	int framecount = 200;
 	String objectText;
 	String pauseText;
-	
-	public CoolObject(int x, int y, int width, int height, String objectText,String pauseText) {
+	Music effect;
+	long soundid;
+	public CoolObject(int x, int y, int width, int height, String objectText,String pauseText,Music effect) {
 		super(x, y, width, height, 0);
 		type=2;
 		this.objectText = objectText;
 		this.pauseText = pauseText;
-		id[0] = 1;
+		id[0] = 0;
+		this.effect = effect;
 	}
 	
 	public void draw(SpriteBatch sb, int abscamx, int abscamy){
@@ -52,6 +55,14 @@ public class CoolObject extends Obstacle{
 		else if(!complete){//everytime they interact
 			framecount--;
 //			System.out.println(framecount+" more!");
+//			if(soundid==0)
+//				soundid = 
+//			else{
+//				effect.
+//				effect.play(soundid);
+//			}
+			if(!effect.isPlaying())
+				effect.play();
 			if(framecount<=0)
 				complete = true;
 		}

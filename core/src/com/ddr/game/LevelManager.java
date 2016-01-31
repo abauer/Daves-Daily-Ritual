@@ -1,5 +1,8 @@
 package com.ddr.game;
 
+import com.badlogic.gdx.Audio;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.ddr.game.entity.CoolObject;
 import com.ddr.game.entity.Obstacle;
 import com.ddr.game.entity.Player;
@@ -70,10 +73,15 @@ public class LevelManager {
 	
 	private CoolObject[] getCoolObjects(int c){
 		switch(c){
-			case 1: return new CoolObject[] {new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space")};
+			case 1: return new CoolObject[] {new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("teeth.mp3"))};
 			//x,y,w,h,
-			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space")};
+			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("door.mp3"))};
 		}
+	}
+	
+	private Music getSound(String s){
+//		return Gdx.audio.newSound(Gdx.files.internal(s));
+		return Gdx.audio.newMusic(Gdx.files.internal(s));
 	}
 	
 	private Wall[] createWallsfromFile(short[] f){ //10,11,1
