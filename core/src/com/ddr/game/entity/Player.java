@@ -10,7 +10,6 @@ public class Player extends Obstacle {
 	protected double absx = 0;
 	protected double absy = 0;
 	protected int maxframes = 1;
-	protected int framecount = 0;
 	protected int direction = 0;
 	
 	public Player(Player p){
@@ -20,7 +19,6 @@ public class Player extends Obstacle {
 		this.absx = p.absx;
 		this.absy = p.absy;
 		this.maxframes = p.maxframes;
-		this.framecount = p.framecount;
 	}
 	
 	public Player(int x, int y, short[] tlid) {
@@ -42,7 +40,7 @@ public class Player extends Obstacle {
 	public void draw(SpriteBatch sb,int abscamx,int abscamy){
 		int tx = (int) Math.round(absx-abscamx);
 		int ty = (int) Math.round((14)*Sprite.SIZE-absy+abscamy);
-		sb.draw(Sprite.getSprite(Sprite.cities,id[framecount%maxframes]),tx,ty);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,id[direction%maxframes]),tx,ty);
 	}
 	
 	public void move(int[] a){

@@ -27,7 +27,7 @@ public class Wall extends Obstacle{
 				for(int j=0; j<height; j++){
 						int absx = (x+i)*Sprite.SIZE+ox-abscamx;
 						int absy = (15-1-y-j)*Sprite.SIZE-oy+abscamy;
-						sb.draw(Sprite.getSprite(Sprite.cities,0),absx,absy);
+						sb.draw(Sprite.getSprite(Sprite.newsprite,0),absx,absy);
 //				}
 		}
 	}

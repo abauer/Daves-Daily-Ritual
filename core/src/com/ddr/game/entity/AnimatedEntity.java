@@ -39,7 +39,7 @@ public class AnimatedEntity extends Obstacle{
 			ox = 16;
 		if(yoffset)
 			oy = 16;
-		sb.draw(Sprite.getSprite(Sprite.cities,id[framecount]),(x)*Sprite.SIZE+ox+abscamx,(15-1-y)*Sprite.SIZE-oy-abscamy);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,id[framecount]),(x)*Sprite.SIZE+ox+abscamx,(15-1-y)*Sprite.SIZE-oy-abscamy);
 	}
 	
 	public void start(){

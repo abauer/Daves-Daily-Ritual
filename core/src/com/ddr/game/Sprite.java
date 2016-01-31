@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Sprite {
 	public static int SIZE=32;
-	public static int SHEETWIDTH=27;
-	public static Texture tiles = new Texture("tile32.png");
-	public static Texture cities = new Texture("city32.png");
+	public static int SHEETWIDTH=10;
+//	public static Texture tiles = new Texture("tile32.png");
+	public static Texture newsprite = new Texture("newer_sprite_sheet.png");
 	
 	public static TextureRegion getSprite(Texture s, int n){
 		return getSprite(s,n%Sprite.SHEETWIDTH,n/Sprite.SHEETWIDTH);
