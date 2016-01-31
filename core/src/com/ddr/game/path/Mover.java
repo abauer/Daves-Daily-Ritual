@@ -1,5 +1,7 @@
 package com.ddr.game.path;
 
+import com.ddr.game.path.Path.Step;
+
 /**
  * A tagging interface for an object representing the entity in the game that
  * is going to moving along the path. This allows us to pass around entity/state
@@ -11,6 +13,9 @@ package com.ddr.game.path;
  * the unit's cost for moving through the tile.
  * 
  */
-public interface Mover {
 
+public interface Mover {
+	
+	public Step[] getLastSteps();
+	
 }

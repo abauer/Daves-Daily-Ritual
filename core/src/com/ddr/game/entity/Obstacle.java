@@ -66,7 +66,7 @@ public class Obstacle extends Entity{
 	public int getAbsY() {int t = y*Sprite.SIZE; return (yoffset)?t+Sprite.SIZE/2 : t;}
 	
 	public boolean entityContainsPoint(int absx, int absy){
-		System.out.println("check your stuff");
+//		System.out.println("check your stuff");
 		return (absx>= getAbsX()&&
 				absx< getAbsX()+getAbsWidth()&&
 				absy>= getAbsY()&&

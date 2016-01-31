@@ -30,7 +30,7 @@ public class LevelManager {
 	
 	private Player getPlayer(int c){
 		switch(c){
-			case 1: return new Player(23,45,new short[]{60,60,71,70,70,70,61,60});
+			case 1: return new Player(23,45,new short[]{100,101,102,103,104,105,106,107});
 			default: return new Player(1,1,new short[]{10,2,36,16});
 		}
 	}
@@ -52,7 +52,7 @@ public class LevelManager {
 	
 	private Zombie[] getZombies(int c){
 		switch(c){
-			case 1: return new Zombie[] {new Zombie(20,20,new short[]{23},p),new Zombie(20,22,new short[]{23},p)};
+			case 1: return new Zombie[] {new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p),new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
 			default: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
 		}
 	}

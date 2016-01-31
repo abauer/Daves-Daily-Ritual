@@ -18,7 +18,7 @@ public class EntityManager {
 		p = new Player(0,0,new short[]{1});
 		list.add(p);
 		this.m = m;
-		aspf = new AStarPathFinder(m, 25, true);
+		aspf = new AStarPathFinder(m, 40*32, true);
 	}
 	
 	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z,CoolObject[] c){
@@ -65,7 +65,7 @@ public class EntityManager {
 		for(int i = 0; i<list.size(); i++){
 			if(list.get(i).getType() == 1){
 				Zombie z = (Zombie) list.get(i);
-				z.move(moveZombie(z,z.askMove()));
+				z.move(moveZombie(z,z.askMove(aspf,m)));
 			}
 		}
 	}

@@ -93,7 +93,6 @@ public class Path {
 	/**
 	 * A single step within the path
 	 * 
-	 * @author Kevin Glass
 	 */
 	public class Step {
 		/** The x coordinate at the given step */

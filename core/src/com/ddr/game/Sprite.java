@@ -7,7 +7,7 @@ public class Sprite {
 	public static int SIZE=32;
 	public static int SHEETWIDTH=10;
 //	public static Texture tiles = new Texture("tile32.png");
-	public static Texture newsprite = new Texture("newer_sprite_sheet.png");
+	public static Texture newsprite = new Texture("newest_sprite_sheet.png");
 	
 	public static TextureRegion getSprite(Texture s, int n){
 		return getSprite(s,n%Sprite.SHEETWIDTH,n/Sprite.SHEETWIDTH);
