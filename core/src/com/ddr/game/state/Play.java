@@ -37,19 +37,21 @@ public class Play extends GameState {
 			gsm.pushState(GameStateManager.PAUSE);
 			return;
         }
+		int[] a = new int[2];
+		a[0]=a[1]=0;
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			currentLevel.em.moveLeft();
+			a[0]-=1;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-        	currentLevel.em.moveRight();
+        	a[0]+=1;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-
-        	currentLevel.em.moveUp();
+        	a[1]-=1;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-        	currentLevel.em.moveDown();
+        	a[1]+=1;
         }
+        currentLevel.em.movePlayer(a);
         updateCam();
 	}
 	
@@ -59,25 +61,26 @@ public class Play extends GameState {
 		
 //		System.out.println("cam: ["+abscamX+", "+abscamY+"] p: "+(x+640/2)+", "+(y+480/2));
 		
+		float accelinc=.33f;
 		
 		if(abscamX<x){//left
-				camxaccel+=.033;
+				camxaccel+=accelinc;
 				if(camxaccel<0)
 					camxaccel=0;
 		}
 		else if(abscamX>x){
-				camxaccel-=.033;
+				camxaccel-=accelinc;
 				if(camxaccel>0)
 					camxaccel=0;
 //				System.out.println("here");
 		}
 		if(abscamY<y){//up
-				camyaccel+=.033;
+				camyaccel+=accelinc;
 				if(camyaccel<0)
 					camyaccel=0;
 		}
 		else if(abscamY>y){//down
-				camyaccel-=.033;
+				camyaccel-=accelinc;
 				if(camyaccel>0)
 					camyaccel=0;
 		}
@@ -88,7 +91,7 @@ public class Play extends GameState {
 			camyaccel=maxcamaccel;
 		if(camxaccel<=-maxcamaccel)
 			camxaccel=-maxcamaccel;
-		if(camyaccel<=-1.0*maxcamaccel)
+		if(camyaccel<=-maxcamaccel)
 			camyaccel=-maxcamaccel;
 		
 		camxvel += camxaccel;
@@ -112,7 +115,7 @@ public class Play extends GameState {
 			abscamX=0;
 //			System.out.println("lesx");
 		}
-		if(abscamX>(currentLevel.size-20)*Sprite.SIZE){
+		else if(abscamX>(currentLevel.size-20)*Sprite.SIZE){
 			abscamX=(currentLevel.size-20)*Sprite.SIZE;
 //			System.out.println("morex");
 		}
@@ -120,19 +123,21 @@ public class Play extends GameState {
 			abscamY=0;
 //			System.out.println("lesy");
 		}
-		if(abscamY>(currentLevel.size-15)*Sprite.SIZE){
+		else if(abscamY>(currentLevel.size-15)*Sprite.SIZE){
 			abscamY=(currentLevel.size-15)*Sprite.SIZE;
 //			System.out.println("morey");
 		}
 		
-		if(abscamX==x){
+		if(abscamX-x<2){
 			camxaccel=0;
 			camxvel=0;
+			abscamX=x;
 //			System.out.println("caught player x");
 		}
-		if(abscamY==y){
+		if(abscamY-y<2){
 			camyaccel=0;
 			camyvel=0;
+			abscamY=y;
 //			System.out.println("caught player y");
 //			abscamY=y;
 		}

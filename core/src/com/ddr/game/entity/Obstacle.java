@@ -66,6 +66,7 @@ public class Obstacle extends Entity{
 	public int getAbsY() {int t = y*Sprite.SIZE; return (yoffset)?t+Sprite.SIZE/2 : t;}
 	
 	public boolean entityContainsPoint(int absx, int absy){
+		System.out.println("check your stuff");
 		return (absx>= getAbsX()&&
 				absx< getAbsX()+getAbsWidth()&&
 				absy>= getAbsY()&&
@@ -73,10 +74,17 @@ public class Obstacle extends Entity{
 	}
 	
 	public boolean entityContainsRect(int absx, int absy, int abswidth, int absheight){
-		return (entityContainsPoint(absx,absy)||
-				entityContainsPoint(absx+abswidth,absy)||
-				entityContainsPoint(absx,absy+absheight)||
-				entityContainsPoint(absx+abswidth,absy+absheight));
+//		return (Math.abs((absx+abswidth/2)-(getAbsX()+getAbsWidth()/2)) < (abswidth+getAbsWidth())/2)
+//				&& (Math.abs((absy+absheight/2)-(getAbsY()+getAbsHeight()/2)) < (absheight+getAbsHeight())/2);
+		return (getAbsX() < absx + abswidth &&
+	   getAbsX() + getAbsWidth() > absx &&
+	   getAbsY() < absy + absheight &&
+	   getAbsHeight() + getAbsY() > absy);
+		
+//		return (entityContainsPoint(absx,absy)||
+//				entityContainsPoint(absx+abswidth,absy)||
+//				entityContainsPoint(absx,absy+absheight)||
+//				entityContainsPoint(absx+abswidth,absy+absheight));
 	}
 	
 	public boolean entityContainsEntity(Entity e){

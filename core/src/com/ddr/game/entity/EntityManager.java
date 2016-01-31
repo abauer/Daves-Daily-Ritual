@@ -47,11 +47,12 @@ public class EntityManager {
 	}
 	
 	private boolean onScreen(Entity e, int x, int y){
-		if(e.getX()>=x-2 && e.getX()<x+22)
-			if(e.getY() >=y-1 && e.getY()<=y+16){
-				return true;
-			}
-		return false;
+//		if(e.getX()>=x-2 && e.getX()<x+22)
+//			if(e.getY() >=y-1 && e.getY()<=y+16){
+//				return true;
+//			}
+//		return false;
+		return true;
 	}
 	
 	public Player getPlayer(){
@@ -73,7 +74,7 @@ public class EntityManager {
 //				System.out.println("skipped object ");
 				continue;
 			}
-			if(e.type==1)
+//			if(e.type==1)
 //				System.out.print("ZOMBIE: ");
 //			System.out.println("e["+e.getAbsX()+", "+e.getAbsY()+", "+e.getAbsWidth()+", "+e.getAbsHeight()+
 //							"] z "+z.getAbsX()+", "+z.getAbsY()+", "+z.getAbsWidth()+", "+z.getAbsHeight());
@@ -87,38 +88,19 @@ public class EntityManager {
 		return a;
 	}
 	
-	public int moveRight(){
+	public void movePlayer(int[] vector){
 		for(int i = 0; i<list.size(); i++){
-			if(!list.get(i).equals(p))
-				if(list.get(i).entityContainsRect(p.getAbsX()+p.getXvel(), p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
-					return -1;
-		}
-		return p.moveRight();
-	}
-	public int moveLeft(){
-		for(int i =0; i<list.size(); i++){
-			if(!list.get(i).equals(p))
-				if(list.get(i).entityContainsRect(p.getAbsX()-p.getXvel(), p.getAbsY(), p.getAbsWidth(), p.getAbsHeight()))
-						return -1;
-		}
-		return p.moveLeft();
-	}
-	public int moveUp(){
-		for(int i =0; i<list.size(); i++){
-			if(!list.get(i).equals(p))
-				if(list.get(i).entityContainsRect(p.getAbsX(), p.getAbsY()-p.getYvel(), p.getAbsWidth(), p.getAbsHeight()))
-						return -1;
-		}
-		return p.moveUp();
-	}
-	public int moveDown(){
-		for(int i =0; i<list.size(); i++){
-			if(!list.get(i).equals(p))
-				if(list.get(i).entityContainsRect(p.getAbsX(), p.getAbsY()+p.getYvel(), p.getAbsWidth(), p.getAbsHeight()))
-						return -1;
-		}
-		return p.moveDown();
-	}
-	
-	
+			Entity e = list.get(i);
+			if(e.equals(p)){
+				continue;
+			}
+			if(e.entityContainsRect(p.getAbsX()+vector[0]*p.xvel, p.getAbsY(), p.getAbsWidth(), p.getAbsHeight())){
+				vector[0]=0;
+			}
+			if(e.entityContainsRect(p.getAbsX(), p.getAbsY()+vector[1]*p.yvel, p.getAbsWidth(), p.getAbsHeight())){
+				vector[1]=0;
+			}
+		}	
+		p.move(vector);
+	}	
 }

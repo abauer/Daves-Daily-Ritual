@@ -1,7 +1,6 @@
 package com.ddr.game.entity;
 
 import com.ddr.game.DavesDailyRitual;
-import com.ddr.game.Sprite;
 import com.ddr.game.handlers.GameStateManager;
 
 public class Zombie extends Player{
@@ -24,11 +23,7 @@ public class Zombie extends Player{
 	}
 	
 	public void move(int[] a){
-		absx+=a[0];
-		absy+=a[1];
-//		System.out.println("moving ["+a[0]+", "+a[1]+"]");
-		y=(absy)/Sprite.SIZE;
-		x=(absx)/Sprite.SIZE;
+		super.move(a);
 		if(entityContainsEntity(target)){
 			DavesDailyRitual.gsm.setState(GameStateManager.GOVER);
 		}
