@@ -3,8 +3,10 @@ package com.ddr.game.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.ddr.game.Level;
 import com.ddr.game.LevelManager;
 import com.ddr.game.Sprite;
@@ -26,14 +28,25 @@ public class Play extends GameState {
 //	private float camyvel = 0f;
 //	private float maxcamvel = 2.0f;
 	
+	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 	private boolean paused = false;	
 	boolean first = true;
 	Sound sound;
+	BitmapFont font9;
+	BitmapFont font18;
 	
 	public Play(GameStateManager gsm){
 		super(gsm);
 		lm = new LevelManager();
 		currentLevel = lm.nextLevel();
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitfont.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 9;
+		font9 = generator.generateFont(parameter); // font size 12 pixels
+		parameter.size = 18;
+		font18 = generator.generateFont(parameter);
+		generator.dispose();
+		font18.setColor(1f, 0f, 0f, 1f);
 //		sound = Gdx.audio.newSound(Gdx.files.internal("door.wav"));
 	}
 	
@@ -171,13 +184,17 @@ public class Play extends GameState {
 		cam.setToOrtho(false, 640, 480);
 		sb.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		sb.begin();
+		sb.begin();		
 		for(int i = 0; i <22; i++)
 			for(int j = 0; j<17; j++){
 				int id = currentLevel.getId(camX-1+i,camY-1+j);
 				sb.draw(Sprite.getSprite(Sprite.newsprite,id),(i-1)*Sprite.SIZE-abscamX%Sprite.SIZE,(15-j)*Sprite.SIZE+abscamY%Sprite.SIZE);
 			}
 		currentLevel.drawEntities(sb, abscamX, abscamY);
+		
+		font9.draw(sb, "Hello Worldw", 10, 10);
+		font18.draw(sb, "Life is good", 10, 480-20);
+		
 		sb.end();
 	}
 	
