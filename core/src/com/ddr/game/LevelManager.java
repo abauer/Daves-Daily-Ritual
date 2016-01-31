@@ -74,7 +74,8 @@ public class LevelManager {
 	
 	private CoolObject[] getCoolObjects(int c){
 		switch(c){
-			case 1: return new CoolObject[] {new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("teeth.mp3"))};
+			case 1: return new CoolObject[]{new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("teeth.mp3")),
+											new CoolObject(27,22,1,1,"Brush your teeth","This is an objective\nPress space",getSound("teeth.mp3"))};
 			//x,y,w,h,
 			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("door.mp3"))};
 		}

@@ -26,10 +26,10 @@ public class NodeManager {
 	}
 	
 	public void displayNodes(SpriteBatch sb,int abscamx, int abscamy){
-		for(Node n:allNodes){
+//		for(Node n:allNodes){
 //			sb.draw(Sprite.getSprite(Sprite.newsprite, 1), n.x-abscamx,(15-1)*Sprite.SIZE-n.y+abscamy);
 //			sb.draw(Sprite.getSprite(Sprite.newsprite,57),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
-		}
+//		}
 	}
 	
 	public void fillEntity(EntityManager em){

@@ -1,8 +1,8 @@
 package com.ddr.game.entity;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ddr.game.Sprite;
 import com.ddr.game.state.Play;
 
 public class CoolObject extends Obstacle{
@@ -26,6 +26,7 @@ public class CoolObject extends Obstacle{
 	public void draw(SpriteBatch sb, int abscamx, int abscamy){
 		super.draw(sb, abscamx, abscamy);
 		if(!first&&!complete){
+			//paper to draw on
 			//sb.draw(Sprite.getSprite(Sprite.newsprite,57),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
 			
 			if(Play.paused){ //first time interact, game gets paused
@@ -36,12 +37,11 @@ public class CoolObject extends Obstacle{
 			}
 
 			//progressbar gets drawn
-//			float progress = framcount/200;
-//			int frame = 0;
-//			if(progress>.25)
-//				frame = 1;
+			float progress = (200.0f-framecount)/200.0f;
+			int frame = (int) (progress/.125);
+//			System.out.println("frame: "+frame+" P: "+progress);
 //			
-//			sb.draw(Sprite.getSprite(Sprite.newsprite,87+frame),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
+			sb.draw(Sprite.getSprite(Sprite.newsprite,110+frame),0,(15-1)*Sprite.SIZE);
 			
 			Play.font9.draw(sb, framecount+" 200", 640-5*32, 480-25);
 		}
@@ -66,6 +66,10 @@ public class CoolObject extends Obstacle{
 			if(framecount<=0)
 				complete = true;
 		}
+	}
+	
+	public boolean getComplete(){
+		return complete;
 	}
 
 }

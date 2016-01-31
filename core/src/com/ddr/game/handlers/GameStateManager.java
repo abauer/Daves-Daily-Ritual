@@ -17,6 +17,7 @@ public class GameStateManager {
 	public static final int MENU = 314159;
 	public static final int PAUSE = 12345;
 	public static final int GOVER = 66666;
+	public static final int OPTIONS = 23232;
 	
 	public GameStateManager(DavesDailyRitual game){
 		this.game = game;

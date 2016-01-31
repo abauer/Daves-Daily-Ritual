@@ -13,7 +13,6 @@ public class EntityManager {
 	public AStarPathFinder aspf;
 	NodeManager m;
 	public CoolObject[] actions;
-	boolean done[];
 	
 	public EntityManager(NodeManager m){
 		list = new ArrayList<Entity>();
@@ -38,11 +37,9 @@ public class EntityManager {
 		for(int i =0; i<z.length; i++)
 			list.add(z[i]);
 		actions = new CoolObject[c.length];
-		done = new boolean[c.length];
 		for(int i =0; i<c.length; i++){
 			list.add(c[i]);
 			actions[i]=c[i];
-			done[i]=false;;
 		}
 		m.fillEntity(this);
 	}
@@ -94,11 +91,12 @@ public class EntityManager {
 //		System.out.println("attempt: ["+vector[0]+", "+vector[1]+"]");
 		for(int i = 0; i<actions.length; i++){
 			CoolObject c = actions[i];
-			//				System.out.println("at: ["+c.getAbsX()+", "+c.getAbsY()+"]");
-			if(Math.abs(c.getAbsX()-vector[0])<32)		
-				if(Math.abs(c.getAbsY()-vector[1])<32)
-//					if(!done[i])
+			if(!c.getComplete()){
+				if(Math.abs(c.getAbsX()-vector[0])<32)		
+					if(Math.abs(c.getAbsY()-vector[1])<32)
 						c.interact();
+				break;
+			}
 		}
 	}
 	
