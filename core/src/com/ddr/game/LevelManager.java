@@ -66,16 +66,18 @@ public class LevelManager {
 	
 	private Zombie[] getZombies(int c){
 		switch(c){
-			case 1: return new Zombie[] {new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p),new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
+			case 1: return new Zombie[] {};//new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p),new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
 			//x,y,frames, p
 			default: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
 		}
 	}
 	
-	private CoolObject[] getCoolObjects(int c){
+	private CoolObject[] getCoolObjects(int c){// x,y,w,h,time,objective,
 		switch(c){
-			case 1: return new CoolObject[]{new CoolObject(24,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("teeth.mp3")),
-											new CoolObject(27,22,1,1,"Brush your teeth","This is an objective\nPress space",getSound("teeth.mp3"))};
+			case 1: return new CoolObject[]{new CoolObject(28,41,1,1,"Knock on John's Door","Wake up John!\n ... (Press space)",getSound("knocking.mp3")),
+											new CoolObject(21,34,1,1,"Brush your teeth","Its a new day, brush\n your teeth! ...",getSound("teeth.mp3")),
+											new CoolObject(29,37,2,1,"Feed the fish","Take care of your pets, \n feed them! ...",getSound("fish.mp3")),
+											new CoolObject(27,22,1,1,"You must be Hungry","This is an objective\nPress space",getSound("teeth.mp3"))};
 			//x,y,w,h,
 			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("door.mp3"))};
 		}
