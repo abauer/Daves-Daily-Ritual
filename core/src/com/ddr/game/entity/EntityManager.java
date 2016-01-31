@@ -30,8 +30,10 @@ public class EntityManager {
 		list.add(this.p);
 		for(int i =0; i<o.length; i++)
 			list.add(o[i]);
-		for(int i =0; i<w.length; i++)
+		for(int i =0; i<w.length; i++){
 			list.add(w[i]);
+		}
+//		System.out.println("len: "+w.length);
 		for(int i =0; i<z.length; i++)
 			list.add(z[i]);
 		for(int i =0; i<c.length; i++)
