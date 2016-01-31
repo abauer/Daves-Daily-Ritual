@@ -116,6 +116,37 @@ public class EntityManager {
 	}
 	
 	public void movePlayer(int[] vector){
+		if(vector[0]==1){
+			if(vector[1]==1){
+				p.direction=7;
+			}
+			if(vector[1]==0){
+				p.direction=0;
+			}
+			if(vector[1]==-1){
+				p.direction=1;
+			}
+		}
+		else if(vector[0]==0){
+			if(vector[1]==1){
+				p.direction=6;
+			}
+			if(vector[1]==-1){
+				p.direction=2;
+			}			
+		}
+		else if(vector[0]==-1){
+			if(vector[1]==1){
+				p.direction=5;
+			}
+			if(vector[1]==0){
+				p.direction=4;
+			}
+			if(vector[1]==-1){
+				p.direction=3;
+			}			
+		}
+		
 		for(int i = 0; i<list.size(); i++){
 			Entity e = list.get(i);
 			if(e.equals(p)){

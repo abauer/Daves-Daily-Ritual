@@ -46,50 +46,41 @@ public class Player extends Obstacle {
 	}
 	
 	public void move(int[] a){
-		
 		if(a[0]==1){
 			if(a[1]==1){
 				absx+=xvel*0.70710678118654752440084436210485;
 				absy+=yvel*0.70710678118654752440084436210485;
-				direction=7;
 			}
 			if(a[1]==0){
 				absx+=xvel;
-				direction=0;
 			}
 			if(a[1]==-1){
 				absx+=xvel*0.70710678118654752440084436210485;
 				absy-=yvel*0.70710678118654752440084436210485;
-				direction=1;
 			}
 		}
 		else if(a[0]==0){
 			if(a[1]==1){
 				absy+=yvel;
-				direction=6;
 			}
 			if(a[1]==0){
 //				return;
 			}
 			if(a[1]==-1){
 				absy-=yvel;
-				direction=2;
 			}			
 		}
 		else if(a[0]==-1){
 			if(a[1]==1){
 				absx-=xvel*0.70710678118654752440084436210485;
 				absy+=yvel*0.70710678118654752440084436210485;
-				direction=5;
 			}
 			if(a[1]==0){
 				absx-=xvel;
-				direction=4;
 			}
 			if(a[1]==-1){
 				absx-=xvel*0.70710678118654752440084436210485;
 				absy-=yvel*0.70710678118654752440084436210485;
-				direction=3;
 //				System.out.println("Walk this way");
 			}			
 		}
