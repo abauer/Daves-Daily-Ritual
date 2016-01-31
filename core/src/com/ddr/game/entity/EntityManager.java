@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.path.AStarPathFinder;
-import com.ddr.game.path.Map;
 import com.ddr.game.path.NodeManager;
 
 public class EntityManager {
@@ -13,14 +12,13 @@ public class EntityManager {
 	Player p;
 	public AStarPathFinder aspf;
 	NodeManager m;
+	public CoolObject[] actions;
+	boolean done[];
 	
 	public EntityManager(NodeManager m){
 		list = new ArrayList<Entity>();
 		p = new Player(0,0,new short[]{1});
 		list.add(p);
-		
-		
-		
 		this.m = m;
 		aspf = new AStarPathFinder(m, 40);
 	}
@@ -39,8 +37,13 @@ public class EntityManager {
 //		System.out.println("len: "+w.length);
 		for(int i =0; i<z.length; i++)
 			list.add(z[i]);
-		for(int i =0; i<c.length; i++)
+		actions = new CoolObject[c.length];
+		done = new boolean[c.length];
+		for(int i =0; i<c.length; i++){
 			list.add(c[i]);
+			actions[i]=c[i];
+			done[i]=false;;
+		}
 		m.fillEntity(this);
 	}
 
@@ -50,6 +53,7 @@ public class EntityManager {
 				list.get(i).draw(sb,abscamx,abscamy);
 			}
 		}
+		m.displayNodes(sb, abscamx, abscamy);
 	}
 	
 	private boolean onScreen(Entity e, int x, int y){
@@ -88,15 +92,13 @@ public class EntityManager {
 			case 7: vector[0]=p.absx+24;vector[1]=p.absy+24; break;
 		}
 //		System.out.println("attempt: ["+vector[0]+", "+vector[1]+"]");
-		for(int i = 0; i<list.size(); i++){
-			if(list.get(i).getType()==2){
-				CoolObject c = (CoolObject) list.get(i);
-//				System.out.println("at: ["+c.getAbsX()+", "+c.getAbsY()+"]");
-				if(Math.abs(c.getAbsX()-vector[0])<32){		
-					if(Math.abs(c.getAbsY()-vector[1])<32)
+		for(int i = 0; i<actions.length; i++){
+			CoolObject c = actions[i];
+			//				System.out.println("at: ["+c.getAbsX()+", "+c.getAbsY()+"]");
+			if(Math.abs(c.getAbsX()-vector[0])<32)		
+				if(Math.abs(c.getAbsY()-vector[1])<32)
+//					if(!done[i])
 						c.interact();
-				}
-			}
 		}
 	}
 	

@@ -2,6 +2,7 @@ package com.ddr.game.path;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ddr.game.Sprite;
 import com.ddr.game.entity.Entity;
 import com.ddr.game.entity.EntityManager;
@@ -24,6 +25,13 @@ public class NodeManager {
 		}
 	}
 	
+	public void displayNodes(SpriteBatch sb,int abscamx, int abscamy){
+		for(Node n:allNodes){
+//			sb.draw(Sprite.getSprite(Sprite.newsprite, 1), n.x-abscamx,(15-1)*Sprite.SIZE-n.y+abscamy);
+//			sb.draw(Sprite.getSprite(Sprite.newsprite,57),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
+		}
+	}
+	
 	public void fillEntity(EntityManager em){
 		blocks = new Entity[em.getList().size()];
 		for(int i =0; i<em.getList().size(); i++){
@@ -34,23 +42,25 @@ public class NodeManager {
 		}
 	}
 	
-	public boolean blocked(Mover m, int x, int y){
-		int cx=(int)Math.round((x)/Sprite.SIZE);
-		int cy=(int)Math.round((y)/Sprite.SIZE);
-		
-		for(int i = 0; i<blocks.length; i++){
-			if(blocks[i].getX()==cx&&blocks[i].getY()==cy)
-				return true;
-		}
-		
-		return false;		
-	}
-	
 	public Node newPlayerNode(int x, int y){
-		return null;
+		Node p = new Node(x,y);
+		Node l = new Node(0,0);
+		float distance = p.distance(l);
+		for(int i = 0; i<allNodes.size(); i++){
+			Node n = allNodes.get(i);
+			if(p.distance(n)<distance)
+				l = n;
+		}
+		if(l.x==0&&l.y==0){
+			System.out.println("this is null");
+			return null;
+		}
+		p.linkNode(l);
+		allNodes.add(p);
+		return p;
 	}
 	
-	public boolean isClosestNode(Node n, int x, int y){
+	public boolean isClosestNode(Node n, int x, int y){//modify so not grid?
 		int cx=(int)Math.round((x)/Sprite.SIZE);
 		int cy=(int)Math.round((y)/Sprite.SIZE);
 		

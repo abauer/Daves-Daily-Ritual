@@ -1,5 +1,7 @@
 package com.ddr.game.path;
 
+import com.ddr.game.Sprite;
+
 public class Node {
 	
 	int x, y; //xy in px format
@@ -13,21 +15,29 @@ public class Node {
 	private int depth;
 	
 	public Node(int x, int y){
-		this.x = x;
-		this.y = y;
+		this.x = x*Sprite.SIZE;
+		this.y = y*Sprite.SIZE;
 		count = 0;
 		cost = 0;
 	}
 	
 	public void linkNode(Node n){
+//		System.out.println("there are "+count+"nodes");
 		Node[] temp = new Node[count];
-		for(int i = 0; i<count; i++)
+		for(int i = 0; i<count; i++){
 			temp[i]=nei[i];
+		}
 		count++;
 		nei = new Node[count];
-		for(int i = 0; i<count; i++)
+		for(int i = 0; i<count-1; i++)
 			nei[i]=temp[i];
 		nei[count-1]=n;
+	}
+	
+	public float distance(Node n){
+		int dx = this.x-n.x;
+		int dy = this.y-n.y;
+		return (float) Math.sqrt(dx*dx+dy*dy);
 	}
 	
 	public Node[] getNeighbors(){

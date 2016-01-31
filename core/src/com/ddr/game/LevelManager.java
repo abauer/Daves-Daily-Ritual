@@ -1,6 +1,5 @@
 package com.ddr.game;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.ddr.game.entity.CoolObject;
@@ -58,7 +57,9 @@ public class LevelManager {
 	
 	private NodeManager getNodes(int c){
 		switch(c){
-			case 1: return new NodeManager(new Node[]{}, new int[][]{{},{}});
+			case 1: return new NodeManager(new Node[]{
+					new Node(20,17),new Node(24,17),new Node(20,20),new Node(20,22),new Node(22,22),new Node(24,20),new Node(22,20),new Node(26,22)
+					}, new int[][]{{1,2},{0,5},{0,6,3},{2,4},{3,4,6,7},{1,6,7},{2,5,4},{6,5,7}});
 			default: return new NodeManager(new Node[]{}, new int[][]{{},{}});
 		}
 	}

@@ -2,7 +2,6 @@ package com.ddr.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -21,14 +20,6 @@ public class Play extends GameState {
 	private int camX = 0;
 	private int camY = 0;
 	
-//	private float camxaccel = 0f;
-//	private float camyaccel = 0f;
-//	private float maxcamaccel = 1.0f;
-//	private float camxvel = 0f;
-//	private float camyvel = 0f;
-//	private float maxcamvel = 2.0f;
-	
-	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 	public static boolean paused = false;	
 	boolean first = true;
 	public static BitmapFont font9;
@@ -41,7 +32,7 @@ public class Play extends GameState {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitfont.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 9;
-		font9 = generator.generateFont(parameter); // font size 12 pixels
+		font9 = generator.generateFont(parameter); // font size 9 pixels
 		parameter.size = 18;
 		font18 = generator.generateFont(parameter);
 		generator.dispose();
