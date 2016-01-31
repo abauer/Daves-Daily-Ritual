@@ -31,7 +31,6 @@ public class Play extends GameState {
 	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 	public static boolean paused = false;	
 	boolean first = true;
-	Sound sound;
 	public static BitmapFont font9;
 	BitmapFont font18;
 	
@@ -50,7 +49,6 @@ public class Play extends GameState {
 		float g = 140f;
 		float b = 78f;
 		font9.setColor(r/255.0f, g/255.0f, b/255.0f, 1f);
-		sound = Gdx.audio.newSound(Gdx.files.internal("cooking.mp3"));
 	}
 	
 	public void handleSpace(float dt){
@@ -190,7 +188,6 @@ public class Play extends GameState {
 			handleSpace(dt);
 		}
 		if(first){
-			sound.play();
 			first = false;
 		}
 	}
