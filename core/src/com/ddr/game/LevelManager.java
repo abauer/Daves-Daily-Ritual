@@ -67,14 +67,14 @@ public class LevelManager {
 	private Wall[] createWallsfromFile(short[] f){ //10,11,1
 		int n = 0;
 		for(int i = 0; i<f.length; i++){
-			if(f[i]!=10 && f[i]!=11 && f[i]!=1){
+			if(f[i]!=10 && f[i]!=11 && f[i]!=1&& f[i] != 79){
 				n++;
 			}
 		}
 		Wall w[] = new Wall[n];
 		n=0;
 		for(int i = 0; i<f.length; i++){
-			if(f[i]!=10 && f[i]!=11 && f[i]!=1){
+			if(f[i]!=10 && f[i]!=11 && f[i]!=1&& f[i] != 79){
 				w[n]=new Wall(i%LEVELSIZE,i/LEVELSIZE,1,1,0);
 //				System.out.println("new wall ["+i%LEVELSIZE+", "+i/LEVELSIZE+"]");
 				n++;
