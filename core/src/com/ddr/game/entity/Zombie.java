@@ -29,44 +29,8 @@ public class Zombie extends Player implements Mover{
 		loop = 0;
 	}
 	
-	public void move(int[] a){
-		super.move(a);
-		if(entityContainsEntity(target)){
-			DavesDailyRitual.gsm.setState(GameStateManager.GOVER);
-		}
-	}
-	
-	public int[] askMove(AStarPathFinder aspf,Map m){//better selection of 8 dir and then do frames somehow and detection of objects
-		int vector[] = new int[2];
-		vector[0]=vector[1]=0;
-		Path p = aspf.findPath(this, getAbsX()-m.x, getAbsY()-m.y, target.getAbsX()-m.x, target.getAbsY()-m.y);
-		if(p==null)
-			return vector;
-		approach[loop++%25] = p.getStep(1);
-		System.out.println("self: ["+(getAbsX()-m.x)+", "+(getAbsY()-m.y)+"]");
-		
-		int tx = p.getStep(1).getX();
-		int ty = p.getStep(1).getY();
-		System.out.println("next: ["+tx+", "+ty+"]");
-		vector[0]=(tx-getAbsX()+m.x);
-		vector[1]=(ty-getAbsY()+m.y);
-		if(vector[0]>0) vector[0]=1;
-		if(vector[1]>0) vector[1]=1;
-		if(vector[0]<0) vector[0]=-1;
-		if(vector[1]<0) vector[1]=-1;
-		System.out.println("diff: ["+vector[0]+", "+vector[1]+"]\n");
-		
-//		
-////		System.out.println("z: ["+absx+", "+absy+"] P:"+target.absx+", "+target.absy);
-//		if(target.absx>absx)
-//			vector[0]=xvel;
-//		else if(target.absx<absx)
-//			vector[0]=-xvel;
-//		if(target.absy>absy)
-//			vector[1]=yvel;
-//		else if(target.absy<absy)
-//			vector[1]=-yvel;
-//		
+	public void move(int[] vector){
+		super.move(vector);
 		if(vector[0]==1){
 			if(vector[1]==1){
 				direction=7;
@@ -97,6 +61,61 @@ public class Zombie extends Player implements Mover{
 				direction=3;
 			}			
 		}
+		if(entityContainsEntity(target)){
+			DavesDailyRitual.gsm.setState(GameStateManager.GOVER);
+		}
+	}
+	
+	public int[] askMove(AStarPathFinder aspf,Map m){//better selection of 8 dir and then do frames somehow and detection of objects
+		int vector[] = new int[2];
+		vector[0]=vector[1]=0;
+//		Path p = aspf.findPath(this, getX()-m.x, getY()-m.y, target.getX()-m.x, target.getY()-m.y);
+//		if(p==null)
+//			return vector;
+//		approach[loop++%25] = p.getStep(1);
+//		System.out.println("self: ["+(getX()-m.x)+", "+(getY()-m.y)+"]");
+//		
+//		int tx = p.getStep(1).getX();
+//		int ty = p.getStep(1).getY();
+//		System.out.println("next: ["+tx+", "+ty+"]");
+//		vector[0]=(tx-getX()+m.x);
+//		vector[1]=(ty-getY()+m.y);
+//		System.out.println("diff: ["+vector[0]+", "+vector[1]+"]\n");
+		
+//		
+//		System.out.println("z: ["+absx+", "+absy+"] P:"+target.absx+", "+target.absy);
+		int dx = (int) (target.absx-absx);
+		int dy = (int) (target.absy-absy);
+		
+//		if(dx>0){
+//			vector[0]=xvel;
+//		}
+//		else if(dx<0){
+//			vector[0]=-xvel;
+//		}
+//		if(dy>0){
+//			vector[1]=yvel;
+//		}
+//		else if(dy<0){
+//			vector[1]=-yvel;
+//		}
+		
+		if(dx<<2 <= dy){
+			vector[0]=0;
+		}
+		else if(dy<<2 <= dx){
+			vector[1]=0;
+		}
+		
+		if(target.absx>absx)
+			vector[0]=xvel;
+		else if(target.absx<absx)
+			vector[0]=-xvel;
+		if(target.absy>absy)
+			vector[1]=yvel;
+		else if(target.absy<absy)
+			vector[1]=-yvel;
+		
 //		System.out.println("asking ["+value[0]+", "+value[1]+"]");
 		return vector;
 	}

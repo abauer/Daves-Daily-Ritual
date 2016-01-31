@@ -15,14 +15,14 @@ public class ClosestHeuristic implements AStarHeuristic {
 		float dx = tx - x;
 		float dy = ty - y;		
 		float result = (float) (Math.sqrt((dx*dx)+(dy*dy)));
-		Step[] s = mover.getLastSteps();
-		for(int i = 0; i<s.length; i++){
-			if(s[i]!=null)
-				if(s[i].getX()==x&&s[i].getY()==y){
-					System.out.println("added Heuristic");
-					result+=.5;
-				}
-		}
+//		Step[] s = mover.getLastSteps();
+//		for(int i = 0; i<s.length; i++){
+//			if(s[i]!=null)
+//				if(s[i].getX()==x&&s[i].getY()==y){
+//					System.out.println("added Heuristic");
+//					result+=.5;
+//				}
+//		}
 		
 		return result;
 	}

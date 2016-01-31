@@ -28,7 +28,7 @@ public class Level {
 		this.size = (short) size;
 		if(size<1)
 			this.size = (short)(size = 1);
-		m = new Map(x*32,y*32,width*32,height*32);
+		m = new Map(x,y,width,height);
 		em = new EntityManager(m);
 		em.loadLevel(p,w,o,z,c);
 		id = new short[size*size];

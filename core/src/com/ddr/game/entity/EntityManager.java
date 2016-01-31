@@ -18,7 +18,7 @@ public class EntityManager {
 		p = new Player(0,0,new short[]{1});
 		list.add(p);
 		this.m = m;
-		aspf = new AStarPathFinder(m, 40*32, true);
+		aspf = new AStarPathFinder(m, 40, true);
 	}
 	
 	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z,CoolObject[] c){
