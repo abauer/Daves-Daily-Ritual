@@ -90,6 +90,7 @@ public class Player extends Obstacle {
 				absx-=xvel*0.70710678118654752440084436210485;
 				absy-=yvel*0.70710678118654752440084436210485;
 				direction=3;
+//				System.out.println("Walk this way");
 			}			
 		}
 //		else
@@ -99,8 +100,8 @@ public class Player extends Obstacle {
 		x=(int)Math.round((absx)/Sprite.SIZE);
 	}
 	
-	public int getAbsX() {return (int) Math.floor(absx);}
-	public int getAbsY() {return (int) Math.floor(absy);}
+	public int getAbsX() {return (int) Math.round(absx);}
+	public int getAbsY() {return (int) Math.round(absy);}
 	public int getXvel() {return xvel;}
 	public int getYvel() {return yvel;}
 	

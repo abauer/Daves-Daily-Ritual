@@ -1,5 +1,6 @@
 package com.ddr.game;
 
+import com.ddr.game.entity.CoolObject;
 import com.ddr.game.entity.Obstacle;
 import com.ddr.game.entity.Player;
 import com.ddr.game.entity.Wall;
@@ -15,10 +16,14 @@ public class LevelManager {
 	}
 	
 	public Level nextLevel(){
+		return nextLevel(count);
+	}
+	
+	public Level nextLevel(int count){
 		p = getPlayer(count);
 		switch(count){
-			case 1:return new Level(LevelDefs.oneL,32,p,getWalls(count),getObstacles(count),getZombies(count));
-			default: return new Level(LevelDefs.oneL,32,p,getWalls(1),getObstacles(1),getZombies(1));
+			case 1:return new Level(LevelDefs.oneL,32,p,getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
+			default: return nextLevel(1);
 		}
 	}
 	
@@ -49,6 +54,13 @@ public class LevelManager {
 		switch(c){
 			case 1: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
 			default: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
+		}
+	}
+	
+	private CoolObject[] getCoolObjects(int c){
+		switch(c){
+			case 1: return new CoolObject[] {new CoolObject(4,20,1,1,81)};
+			default: return new CoolObject[] {new CoolObject(4,20,1,1,81)};
 		}
 	}
 }

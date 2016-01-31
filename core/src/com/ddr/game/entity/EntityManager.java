@@ -22,7 +22,7 @@ public class EntityManager {
 //		list.add(new Obstacle(2, 2, 2, 2, 25,false,true));
 //	}
 	
-	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z){
+	public void loadLevel(Player p,Wall w[],Obstacle[] o,Zombie[] z,CoolObject[] c){
 		for(int i =0; i<list.size(); i+=0){
 			list.remove(0);
 		}
@@ -30,12 +30,12 @@ public class EntityManager {
 		list.add(this.p);
 		for(int i =0; i<o.length; i++)
 			list.add(o[i]);
-		for(int i =0; i<w.length; i++){
+		for(int i =0; i<w.length; i++)
 			list.add(w[i]);
-		}
-		for(int i =0; i<z.length; i++){
+		for(int i =0; i<z.length; i++)
 			list.add(z[i]);
-		}
+		for(int i =0; i<c.length; i++)
+			list.add(c[i]);
 	}
 
 	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){
@@ -67,6 +67,33 @@ public class EntityManager {
 			}
 		}
 	}
+	
+	public void interact(){
+		double vector[]=new double[2];
+//		System.out.println("attempt: ["+p.absx+", "+p.absy+"] dir"+p.direction);
+		switch(p.direction){
+			case 0: vector[0]=p.absx+24;vector[1]=p.absy; break;
+			case 1: vector[0]=p.absx+24;vector[1]=p.absy-24; break;
+			case 2: vector[0]=p.absx;vector[1]=p.absy-24; break;
+			case 3: vector[0]=p.absx-24;vector[1]=p.absy-24; break;
+			case 4: vector[0]=p.absx-24;vector[1]=p.absy; break;
+			case 5: vector[0]=p.absx-24;vector[1]=p.absy+24; break;
+			case 6: vector[0]=p.absx;vector[1]=p.absy+24; break;
+			case 7: vector[0]=p.absx+24;vector[1]=p.absy+24; break;
+		}
+//		System.out.println("attempt: ["+vector[0]+", "+vector[1]+"]");
+		for(int i = 0; i<list.size(); i++){
+			if(list.get(i).getType()==2){
+				CoolObject c = (CoolObject) list.get(i);
+//				System.out.println("at: ["+c.getAbsX()+", "+c.getAbsY()+"]");
+				if(Math.abs(c.getAbsX()-vector[0])<32){		
+					if(Math.abs(c.getAbsY()-vector[1])<32)
+						c.interact();
+				}
+			}
+		}
+	}
+	
 	private int[] moveZombie(Zombie z, int[] a){
 		for(int i = 0; i<list.size(); i++){
 			Entity e = list.get(i);

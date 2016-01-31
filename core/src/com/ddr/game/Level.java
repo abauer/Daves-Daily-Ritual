@@ -1,6 +1,7 @@
 package com.ddr.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ddr.game.entity.CoolObject;
 import com.ddr.game.entity.EntityManager;
 import com.ddr.game.entity.Obstacle;
 import com.ddr.game.entity.Player;
@@ -21,12 +22,12 @@ public class Level {
 		}
 	}
 	
-	public Level(short x[],int size,Player p, Wall[] w,Obstacle[] o, Zombie[] z){
+	public Level(short x[],int size,Player p, Wall[] w,Obstacle[] o, Zombie[] z,CoolObject[] c){
 		this.size = (short) size;
 		if(size<1)
 			this.size = (short)(size = 1);
 		em = new EntityManager();
-		em.loadLevel(p,w,o,z);
+		em.loadLevel(p,w,o,z,c);
 		id = new short[size*size];
 		for(int i = 0; i<size*size; i++){
 			if(i<x.length)
