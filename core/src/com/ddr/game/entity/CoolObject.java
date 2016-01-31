@@ -30,7 +30,7 @@ public class CoolObject extends Obstacle{
 			else{
 				Play.font9.draw(sb, objectText, 640-5*32, 480-5);
 			}
-			Play.font9.draw(sb, framecount+" 200", 640-5*32, 480-15);
+			Play.font9.draw(sb, framecount+" 200", 640-5*32, 480-25);
 		}
 	}
 	

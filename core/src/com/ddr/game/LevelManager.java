@@ -45,7 +45,7 @@ public class LevelManager {
 	
 	private Obstacle[] getObstacles(int c){
 		switch(c){
-			case 1: return new Obstacle[] {};//{new Obstacle(2,2,2,2,25)};
+			case 1: return new Obstacle[] {new Obstacle(20,39,2,3,37)};//{new Obstacle(2,2,2,2,25)};
 			default: return new Obstacle[] {};//{new Obstacle(2,2,2,2,25)};
 		}
 	}

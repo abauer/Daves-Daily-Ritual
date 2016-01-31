@@ -12,8 +12,8 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	TextureRegion region;
 	OrthographicCamera cam;
 	
-	public static int WIDTH = 640*2;
-	public static int HEIGHT = 480*2;
+	public static int WIDTH = 640;
+	public static int HEIGHT = 480;
 	public static int SCALE = 1;
 	public static String TITLE = "Daves Daily Ritual";
 	

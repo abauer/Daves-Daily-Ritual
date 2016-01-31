@@ -30,7 +30,7 @@ public class Obstacle extends Entity{
 			id = new short[1];
 		for(int i =0; i<width; i++)
 			for(int j = 0; j<height; j++)
-				id[j*width+i]=(short)(tlid+i+j*Sprite.SIZE);
+				id[j*width+i]=(short)(tlid+i+j*Sprite.SHEETWIDTH);
 	}
 	
 	public Obstacle(int x, int y, int width, int height,int tlid,boolean xoffset, boolean yoffset){
@@ -45,8 +45,10 @@ public class Obstacle extends Entity{
 		this.xoffset = xoffset;
 		this.yoffset = yoffset;
 		for(int i =0; i<width; i++)
-			for(int j = 0; j<height; j++)
-				id[j*width+i]=(short)(tlid+i+j*Sprite.SIZE);
+			for(int j = 0; j<height; j++){
+				id[j*width+i]=(short)(tlid+i+j*Sprite.SHEETWIDTH);
+//				System.out.println("id: "+j*width+i+" = "+id[j*width+i]);
+			}
 	}
 	
 	public void draw(SpriteBatch sb,int abscamx, int abscamy) {
@@ -72,6 +74,7 @@ public class Obstacle extends Entity{
 				absy>= getAbsY()&&
 				absy< getAbsY()+getAbsHeight());
 	}
+	
 	
 	public boolean entityContainsRect(int absx, int absy, int abswidth, int absheight){
 //		return (Math.abs((absx+abswidth/2)-(getAbsX()+getAbsWidth()/2)) < (abswidth+getAbsWidth())/2)
