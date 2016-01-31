@@ -53,7 +53,7 @@ public class LevelManager {
 	
 	private Zombie[] getZombies(int c){
 		switch(c){
-			case 1: return new Zombie[] {};//{new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
+			case 1: return new Zombie[] {new Zombie(20,20,new short[]{23},p),new Zombie(20,22,new short[]{23},p)};
 			default: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
 		}
 	}
