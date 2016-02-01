@@ -34,7 +34,7 @@ public class LevelManager {
 	
 	private Player getPlayer(int c){
 		switch(c){
-			case 1: return new Player(23,45,new short[]{100,101,102,103,104,105,106,107});
+			case 1: return new Player(22,39,new short[]{100,101,102,103,104,105,106,107});
 			//x,y frames
 			default: return new Player(1,1,new short[]{10,2,36,16});
 		}
@@ -74,10 +74,11 @@ public class LevelManager {
 	
 	private CoolObject[] getCoolObjects(int c){// x,y,w,h,time,objective,
 		switch(c){
-			case 1: return new CoolObject[]{new CoolObject(28,41,1,1,"Knock on John's Door","Wake up John!\n ... (Press space)",getSound("knocking.mp3")),
-											new CoolObject(21,34,1,1,"Brush your teeth","Its a new day, brush\n your teeth! ...",getSound("teeth.mp3")),
-											new CoolObject(29,37,2,1,"Feed the fish","Take care of your pets, \n feed them! ...",getSound("fish.mp3")),
-											new CoolObject(27,22,1,1,"You must be Hungry","This is an objective\nPress space",getSound("teeth.mp3"))};
+			case 1: return new CoolObject[]{new CoolObject(28,41,1,1,"Knock on \nJohn's Door","Wake up John!",getSound("knocking.mp3")),
+											new CoolObject(21,34,1,1,"Brush your \nteeth","Brush Brush \nBrush!",getSound("teeth.mp3")),
+											new CoolObject(29,37,2,1,"Feed the fish","Take care \nof your pets!",getSound("fish.mp3")),
+											new CoolObject(22,28,2,1,"Cook some \nfood","You look \nhungry!",getSound("cooking.mp3")),
+											new CoolObject(29,23,3,6,"Eat your \nfood","You're still \nhungry!",getSound("eating.mp3"))};
 			//x,y,w,h,
 			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("door.mp3"))};
 		}

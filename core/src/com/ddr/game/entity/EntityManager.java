@@ -3,8 +3,10 @@ package com.ddr.game.entity;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ddr.game.Sprite;
 import com.ddr.game.path.AStarPathFinder;
 import com.ddr.game.path.NodeManager;
+import com.ddr.game.state.Play;
 
 public class EntityManager {
 	
@@ -44,13 +46,29 @@ public class EntityManager {
 		m.fillEntity(this);
 	}
 
-	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){
+	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){		
 		for(int i =0; i<list.size(); i++){
 			if(onScreen(list.get(i),camX,camY)){
 				list.get(i).draw(sb,abscamx,abscamy);
 			}
 		}
-		m.displayNodes(sb, abscamx, abscamy);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,128),640-(3)*Sprite.SIZE,480-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640-(1)*Sprite.SIZE,480-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640-(2)*Sprite.SIZE,480-(1)*Sprite.SIZE);
+		
+		sb.draw(Sprite.getSprite(Sprite.newsprite,138),640-(3)*Sprite.SIZE,480-(2)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640-(1)*Sprite.SIZE,480-(2)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640-(2)*Sprite.SIZE,480-(2)*Sprite.SIZE);
+		
+		for(int i = 0; i<actions.length; i++){
+			CoolObject c = actions[i];
+			if(!c.getComplete()){
+//				if(c.getClosestDistance((int)vector[0],(int)vector[1])<10.0)
+				Play.font9.draw(sb, c.getText(), 640-3*32+5, 480-5);
+				break;
+			}
+		}
+//		m.displayNodes(sb, abscamx, abscamy);
 	}
 	
 	private boolean onScreen(Entity e, int x, int y){
@@ -77,7 +95,7 @@ public class EntityManager {
 	
 	public void interact(){
 		double vector[]=new double[2];
-//		System.out.println("attempt: ["+p.absx+", "+p.absy+"] dir"+p.direction);
+//		System.out.println("player: ["+p.absx+", "+p.absy+"] dir"+p.direction);
 		switch(p.direction){
 			case 0: vector[0]=p.absx+24;vector[1]=p.absy; break;
 			case 1: vector[0]=p.absx+24;vector[1]=p.absy-24; break;
@@ -92,8 +110,7 @@ public class EntityManager {
 		for(int i = 0; i<actions.length; i++){
 			CoolObject c = actions[i];
 			if(!c.getComplete()){
-				if(Math.abs(c.getAbsX()-vector[0])<32)		
-					if(Math.abs(c.getAbsY()-vector[1])<32)
+				if(c.getClosestDistance((int)vector[0],(int)vector[1])<10.0)
 						c.interact();
 				break;
 			}

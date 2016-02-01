@@ -19,38 +19,28 @@ public class CoolObject extends Obstacle{
 		type=2;
 		this.objectText = objectText;
 		this.pauseText = pauseText;
-		id[0] = 0;
+		for(int i =0; i<id.length; i++)
+			id[i] = 0;
 		this.effect = effect;
 	}
 	
 	public void draw(SpriteBatch sb, int abscamx, int abscamy){
 		super.draw(sb, abscamx, abscamy);
+		//paper to draw on
+//		sb.draw(Sprite.getSprite(Sprite.newsprite,129), 640-(0)*Sprite.SIZE, 480-(1)*Sprite.SIZE+3, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 180);
+//		sb.draw(Sprite.getSprite(Sprite.newsprite,129), 640-(1)*Sprite.SIZE, 480-(1)*Sprite.SIZE+3, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 180);
 		if(!first&&!complete){
-			//paper to draw on
-			//sb.draw(Sprite.getSprite(Sprite.newsprite,57),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
-			
-			if(Play.paused){ //first time interact, game gets paused
-				Play.font9.draw(sb, pauseText, 640-5*32, 480-5);
-			}
-			else{// always occurs, after first interact
-				Play.font9.draw(sb, objectText, 640-5*32, 480-5);
-			}
-
-			//progressbar gets drawn
+			sb.draw(Sprite.getSprite(Sprite.newsprite,128), Sprite.SIZE, 480-(0)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 180);
 			float progress = (200.0f-framecount)/200.0f;
 			int frame = (int) (progress/.125);
-//			System.out.println("frame: "+frame+" P: "+progress);
-//			
 			sb.draw(Sprite.getSprite(Sprite.newsprite,110+frame),0,(15-1)*Sprite.SIZE);
-			
-			Play.font9.draw(sb, framecount+" 200", 640-5*32, 480-25);
 		}
 	}
 	
 	public void interact(){
 		if(first){ //first time interact
 			first = false;
-			Play.paused=true;
+//			Play.paused=true;
 		}
 		else if(!complete){//everytime they interact
 			framecount--;
@@ -70,6 +60,56 @@ public class CoolObject extends Obstacle{
 	
 	public boolean getComplete(){
 		return complete;
+	}
+	
+	public float getClosestDistance(int tx, int ty){
+		float dx = x*Sprite.SIZE-tx;
+		float dy = y*Sprite.SIZE-ty;
+		float dis = (float) Math.sqrt(dx*dx+dy*dy);
+		
+		for(int i = 0; i<width;i++){
+			for(int j = 0; j<height; j++){
+				dx=(x+i)*Sprite.SIZE-tx;//top left
+				dy=(y+j)*Sprite.SIZE-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i)*Sprite.SIZE+Sprite.SIZE/2-tx;//top center
+				dy=(y+j)*Sprite.SIZE-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i+1)*Sprite.SIZE-tx;//top right
+				dy=(y+j)*Sprite.SIZE-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i+1)*Sprite.SIZE-tx;//right center
+				dy=(y+j)*Sprite.SIZE+Sprite.SIZE/2-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i+1)*Sprite.SIZE-tx;//bottom right
+				dy=(y+j+1)*Sprite.SIZE-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i)*Sprite.SIZE+Sprite.SIZE/2-tx;//bottom center
+				dy=(y+j+1)*Sprite.SIZE-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i)*Sprite.SIZE-tx;//bottom left
+				dy=(y+j+1)*Sprite.SIZE-ty;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+				
+				dx=(x+i)*Sprite.SIZE-tx;//left center
+				dy=(y+j)*Sprite.SIZE-ty+Sprite.SIZE/2;
+				dis = (dis<Math.sqrt(dx*dx+dy*dy)) ? dis: (float)Math.sqrt(dx*dx+dy*dy);
+			}
+		}	
+		return dis;
+	}
+	
+	public String getText(){
+		if(!first&&!complete)
+			return pauseText;
+		else
+			return objectText;
 	}
 
 }

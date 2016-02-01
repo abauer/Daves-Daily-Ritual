@@ -7,6 +7,7 @@ import com.ddr.game.state.GameOver;
 import com.ddr.game.state.GameState;
 import com.ddr.game.state.Play;
 import com.ddr.game.state.Menu;
+import com.ddr.game.state.Options;
 import com.ddr.game.state.Pause;
 
 public class GameStateManager {
@@ -44,6 +45,7 @@ public class GameStateManager {
 		if(state == MENU) return new Menu(this);
 		if(state == PAUSE) return new Pause(this);
 		if(state == GOVER) return new GameOver(this);
+		if(state == OPTIONS) return new Options(this);
 		return null;
 	}
 	

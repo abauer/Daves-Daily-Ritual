@@ -14,7 +14,7 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	
 	public static int WIDTH = 640;
 	public static int HEIGHT = 480;
-	public static int SCALE = 1;
+	public static int SCALE = 2;
 	public static String TITLE = "Daves Daily Ritual";
 	
 	public static final float STEP = 1/60f;

@@ -2,6 +2,7 @@ package com.ddr.game.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -22,23 +23,25 @@ public class Play extends GameState {
 	
 	public static boolean paused = false;	
 	boolean first = true;
-	public static BitmapFont font9 = new BitmapFont();
+	public static BitmapFont font9;// = new BitmapFont();
+//	Font
 //	BitmapFont font18;
 	
 	public Play(GameStateManager gsm){
 		super(gsm);
 		lm = new LevelManager();
 		currentLevel = lm.nextLevel();
-//		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitfont.TTF"));
-//		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		FileHandle f = Gdx.files.internal("postnote.ttf");
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(f);
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 //		parameter.size = 9;
 //		font9 = generator.generateFont(parameter); // font size 9 pixels
-//		parameter.size = 18;
-//		font18 = generator.generateFont(parameter);
+		parameter.size = 18;
+		font9 = generator.generateFont(parameter);
 //		generator.dispose();
-		float r = 156f;
-		float g = 140f;
-		float b = 78f;
+		float r = 82f;
+		float g = 70f;
+		float b = 24f;
 		font9.setColor(r/255.0f, g/255.0f, b/255.0f, 1f);
 	}
 	
