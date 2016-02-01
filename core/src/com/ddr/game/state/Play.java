@@ -36,7 +36,7 @@ public class Play extends GameState {
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 //		parameter.size = 9;
 //		font9 = generator.generateFont(parameter); // font size 9 pixels
-		parameter.size = 18;
+		parameter.size = 20;
 		font9 = generator.generateFont(parameter);
 //		generator.dispose();
 		float r = 82f;

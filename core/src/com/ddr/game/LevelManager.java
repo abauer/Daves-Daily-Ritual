@@ -78,7 +78,8 @@ public class LevelManager {
 											new CoolObject(21,34,1,1,"Brush your \nteeth","Brush Brush \nBrush!",getSound("teeth.mp3")),
 											new CoolObject(29,37,2,1,"Feed the fish","Take care \nof your pets!",getSound("fish.mp3")),
 											new CoolObject(22,28,2,1,"Cook some \nfood","You look \nhungry!",getSound("cooking.mp3")),
-											new CoolObject(29,23,3,6,"Eat your \nfood","You're still \nhungry!",getSound("eating.mp3"))};
+											new CoolObject(29,23,3,6,"Eat your \nfood","You're still \nhungry!",getSound("eating.mp3")),
+											new CoolObject(20,44,2,3,"Time for work","Start the car!",getSound("eating.mp3"))};
 			//x,y,w,h,
 			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("door.mp3"))};
 		}
