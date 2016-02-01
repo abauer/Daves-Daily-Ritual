@@ -19,7 +19,7 @@ public class DavesDailyRitual extends ApplicationAdapter {
 	
 	public static final float STEP = 1/60f;
 	private float accum;
-	private int count =0;
+	public static int count = 0;
 	public static GameStateManager gsm;
 	
 	

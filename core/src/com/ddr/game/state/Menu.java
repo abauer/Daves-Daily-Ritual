@@ -32,7 +32,7 @@ public class Menu extends GameState {
 	}
 	
 	public void handleInput(float dt){
-		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
 			switch(select){
 				case 0: gsm.popState();
 						gsm.pushState(GameStateManager.PLAY); break;
@@ -49,11 +49,9 @@ public class Menu extends GameState {
 //			y--;
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
-//			select++;
 //			x--;
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
-//			select++;
 //			x++;
 		}
 		if(select<0) select = 0;

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.ddr.game.DavesDailyRitual;
 import com.ddr.game.Level;
 import com.ddr.game.LevelManager;
 import com.ddr.game.Sprite;
@@ -20,8 +21,9 @@ public class Play extends GameState {
 	private int abscamY = 0;//90*32;
 	private int camX = 0;
 	private int camY = 0;
+	private int pauseTime;
 	
-	public static boolean paused = false;	
+	public static boolean paused = true;	
 	boolean first = true;
 	public static BitmapFont font9;// = new BitmapFont();
 //	Font
@@ -30,7 +32,7 @@ public class Play extends GameState {
 	public Play(GameStateManager gsm){
 		super(gsm);
 		lm = new LevelManager();
-		currentLevel = lm.nextLevel();
+		nextLevel();
 		FileHandle f = Gdx.files.internal("postnote.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(f);
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -49,7 +51,8 @@ public class Play extends GameState {
 			return;
         }
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-			paused = false;
+			if(DavesDailyRitual.count-pauseTime>5)
+				paused = false;
 	}
 	
 	public void handleInput(float dt){
@@ -194,8 +197,11 @@ public class Play extends GameState {
 				int id = currentLevel.getId(camX-1+i,camY-1+j);
 				sb.draw(Sprite.getSprite(Sprite.newsprite,id),(i-1)*Sprite.SIZE-abscamX%Sprite.SIZE,(15-j)*Sprite.SIZE+abscamY%Sprite.SIZE);
 			}
-		if(paused)
+		if(paused){
+			sb.draw(Sprite.getSprite(Sprite.newsprite,128), Sprite.SIZE, 480-(0)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 180);
+			sb.draw(Sprite.getSprite(Sprite.newsprite,121),0,(15-1)*Sprite.SIZE);
 			currentLevel.displayNote(sb);
+		}
 		
 		if(currentLevel.drawEntities(sb, abscamX, abscamY)){
 			Play.paused = true;
@@ -210,6 +216,7 @@ public class Play extends GameState {
 	public void dispose(){}
 	
 	public void nextLevel(){
+		pauseTime = DavesDailyRitual.count;
 		currentLevel = lm.nextLevel();
 	}
 }

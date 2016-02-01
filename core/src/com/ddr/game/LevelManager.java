@@ -32,7 +32,8 @@ public class LevelManager {
 			case 1: l = LevelDefs.oneL; /*18,15,17,37*/
 			default: l = LevelDefs.oneL;
 		}
-		return new Level(l,LEVELSIZE,p,getNodes(count),getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
+
+		return new Level(l,LEVELSIZE,p,getBeginNote(count),getNodes(count),getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
 	}
 	
 	private Player getPlayer(int c){
@@ -41,6 +42,10 @@ public class LevelManager {
 			//x,y frames
 			default: return getPlayer(1);
 		}
+	}
+	
+	private String getBeginNote(int count){
+		return "Press Space to Continue";
 	}
 	
 	private Wall[] getWalls(int c){

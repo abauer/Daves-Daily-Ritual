@@ -53,9 +53,14 @@ public class CoolObject extends Obstacle{
 //			}
 			if(!effect.isPlaying())
 				effect.play();
-			if(framecount<=0)
-				complete = true;
+			if(framecount<=0){
+				actionCompleted();
+			}
 		}
+	}
+	
+	protected void actionCompleted(){
+		complete = true;
 	}
 	
 	public boolean getComplete(){

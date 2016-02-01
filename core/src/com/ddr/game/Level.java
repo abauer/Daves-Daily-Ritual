@@ -9,6 +9,7 @@ import com.ddr.game.entity.Wall;
 import com.ddr.game.entity.Zombie;
 import com.ddr.game.path.Map;
 import com.ddr.game.path.NodeManager;
+import com.ddr.game.state.Play;
 
 public class Level {
 	
@@ -16,6 +17,7 @@ public class Level {
 	public short size = 1;
 	public EntityManager em;
 	public Map m;
+	String note;
 //	public Level(){
 //		em = new EntityManager();
 //		id = new short[size*size];
@@ -24,7 +26,7 @@ public class Level {
 //		}
 //	}
 	
-	public Level(short ids[],int size,Player p, NodeManager m,
+	public Level(short ids[],int size,Player p, String s, NodeManager m,
 			Wall[] w,Obstacle[] o, Zombie[] z,CoolObject[] c){
 		this.size = (short) size;
 		if(size<1)
@@ -38,6 +40,7 @@ public class Level {
 			else
 				id[i]=19;
 		}
+		note = s;
 	}
 	
 	public Player getPlayer(){
@@ -61,5 +64,37 @@ public class Level {
 	
 	public void displayNote(SpriteBatch sb){
 		
+		sb.draw(Sprite.getSprite(Sprite.newsprite,128),640/2-(3)*Sprite.SIZE,480/2-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2-(2)*Sprite.SIZE,480/2-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2-(1)*Sprite.SIZE,480/2-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2-(0)*Sprite.SIZE,480/2-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2+(1)*Sprite.SIZE,480/2-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2+(1)*Sprite.SIZE,480/2-(1)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,128),640/2+(2)*Sprite.SIZE,480/2-(0)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 270);
+		
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2-(2)*Sprite.SIZE,480/2-(2)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 90);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2-(2)*Sprite.SIZE,480/2-(2)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2-(1)*Sprite.SIZE,480/2-(2)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2-(0)*Sprite.SIZE,480/2-(2)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2+(1)*Sprite.SIZE,480/2-(2)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2+(2)*Sprite.SIZE,480/2-(1)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 270);
+		
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2-(2)*Sprite.SIZE,480/2-(3)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 90);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2-(2)*Sprite.SIZE,480/2-(3)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2-(1)*Sprite.SIZE,480/2-(3)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2-(0)*Sprite.SIZE,480/2-(3)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,137),640/2+(1)*Sprite.SIZE,480/2-(3)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,129),640/2+(2)*Sprite.SIZE,480/2-(2)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 270);
+		
+		sb.draw(Sprite.getSprite(Sprite.newsprite,138),640/2-(3)*Sprite.SIZE,480/2-(4)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640/2-(2)*Sprite.SIZE,480/2-(4)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640/2-(1)*Sprite.SIZE,480/2-(4)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640/2-(0)*Sprite.SIZE,480/2-(4)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640/2+(1)*Sprite.SIZE,480/2-(4)*Sprite.SIZE);
+		sb.draw(Sprite.getSprite(Sprite.newsprite,138),640/2+(3)*Sprite.SIZE,480/2-(4)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 90);
+		
+//		sb.draw(Sprite.getSprite(Sprite.newsprite,128), Sprite.SIZE, 480/2-(0)*Sprite.SIZE, 0, 0, Sprite.SIZE, Sprite.SIZE, 1, 1, 180);
+		
+		Play.font9.draw(sb,note,640/2-50,480/2-24);
 	}
 }
