@@ -55,7 +55,11 @@ public class Level {
 		return id[y*size+x];
 	}
 	
-	public void drawEntities(SpriteBatch sb, int camx, int camy){
-		em.drawEntities(sb, (camx/Sprite.SIZE),(camy/Sprite.SIZE),camx, camy);
+	public boolean drawEntities(SpriteBatch sb, int camx, int camy){
+		return em.drawEntities(sb, (camx/Sprite.SIZE),(camy/Sprite.SIZE),camx, camy);
+	}
+	
+	public void displayNote(SpriteBatch sb){
+		
 	}
 }

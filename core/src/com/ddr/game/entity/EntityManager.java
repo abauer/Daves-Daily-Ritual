@@ -46,7 +46,7 @@ public class EntityManager {
 		m.fillEntity(this);
 	}
 
-	public void drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){		
+	public boolean drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){		
 		for(int i =0; i<list.size(); i++){
 			if(onScreen(list.get(i),camX,camY)){
 				list.get(i).draw(sb,abscamx,abscamy);
@@ -65,9 +65,12 @@ public class EntityManager {
 			if(!c.getComplete()){
 //				if(c.getClosestDistance((int)vector[0],(int)vector[1])<10.0)
 				Play.font9.draw(sb, c.getText(), 640-3*32+5, 480-5);
-				break;
+				return false;
 			}
 		}
+		//no more actions
+		return true;
+		
 //		m.displayNodes(sb, abscamx, abscamy);
 	}
 	

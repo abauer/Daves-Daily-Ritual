@@ -14,7 +14,7 @@ public class GameStateManager {
 
 	public DavesDailyRitual game;
 	private Stack<GameState> gameStates;
-	public static final int LV1 = 912124;
+	public static final int PLAY = 912124;
 	public static final int MENU = 314159;
 	public static final int PAUSE = 12345;
 	public static final int GOVER = 66666;
@@ -41,7 +41,7 @@ public class GameStateManager {
 	}
 	
 	private GameState getState(int state){
-		if(state == LV1) return new Play(this);
+		if(state == PLAY) return new Play(this);
 		if(state == MENU) return new Menu(this);
 		if(state == PAUSE) return new Pause(this);
 		if(state == GOVER) return new GameOver(this);

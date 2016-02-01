@@ -34,11 +34,9 @@ public class Play extends GameState {
 		FileHandle f = Gdx.files.internal("postnote.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(f);
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-//		parameter.size = 9;
-//		font9 = generator.generateFont(parameter); // font size 9 pixels
 		parameter.size = 20;
 		font9 = generator.generateFont(parameter);
-//		generator.dispose();
+		generator.dispose();
 		float r = 82f;
 		float g = 70f;
 		float b = 24f;
@@ -196,7 +194,13 @@ public class Play extends GameState {
 				int id = currentLevel.getId(camX-1+i,camY-1+j);
 				sb.draw(Sprite.getSprite(Sprite.newsprite,id),(i-1)*Sprite.SIZE-abscamX%Sprite.SIZE,(15-j)*Sprite.SIZE+abscamY%Sprite.SIZE);
 			}
-		currentLevel.drawEntities(sb, abscamX, abscamY);
+		if(paused)
+			currentLevel.displayNote(sb);
+		
+		if(currentLevel.drawEntities(sb, abscamX, abscamY)){
+			Play.paused = true;
+			nextLevel();
+		}
 		
 //		font18.draw(sb, "Life is good", 10, 480-20);
 		
@@ -205,4 +209,7 @@ public class Play extends GameState {
 	
 	public void dispose(){}
 	
+	public void nextLevel(){
+		currentLevel = lm.nextLevel();
+	}
 }

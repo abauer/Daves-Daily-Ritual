@@ -17,41 +17,43 @@ public class LevelManager {
 	Player p;
 	
 	public LevelManager(){
-		count = 1;
+		count = 0;
 	}
 	
 	public Level nextLevel(){
+		count++;
 		return nextLevel(count);
 	}
 	
 	public Level nextLevel(int count){
 		p = getPlayer(count);
+		short[] l;
 		switch(count){
-/*18,15,17,37*/	case 1:return new Level(LevelDefs.oneL,LEVELSIZE,p,getNodes(count),getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
-			default: return nextLevel(1);
+			case 1: l = LevelDefs.oneL; /*18,15,17,37*/
+			default: l = LevelDefs.oneL;
 		}
+		return new Level(l,LEVELSIZE,p,getNodes(count),getWalls(count),getObstacles(count),getZombies(count),getCoolObjects(count));
 	}
 	
 	private Player getPlayer(int c){
 		switch(c){
 			case 1: return new Player(22,39,new short[]{100,101,102,103,104,105,106,107});
 			//x,y frames
-			default: return new Player(1,1,new short[]{10,2,36,16});
+			default: return getPlayer(1);
 		}
 	}
 	
 	private Wall[] getWalls(int c){
 		switch(c){
 			case 1: return createWallsfromFile(LevelDefs.oneL,new short[]{1,10,11,79});
-			default: return new Wall[]{new Wall(0,0,10,1,0),new Wall(0,1,1,26,0),new Wall(1,26,6,1,0),new Wall(6,23,1,3,0),new Wall(6,23,10,1,0),
-				new Wall(16,5,1,17,0),new Wall(10,5,6,1,0),new Wall(9,1,1,5,0)};
+			default: return getWalls(1);
 		}
 	}
 	
 	private Obstacle[] getObstacles(int c){
 		switch(c){
-			case 1: return new Obstacle[] {new Obstacle(20,39,2,3,37)};//{new Obstacle(2,2,2,2,25)};
-			default: return new Obstacle[] {};//{new Obstacle(2,2,2,2,25)};
+			case 1: return new Obstacle[] {new Obstacle(20,39,2,3,37)};
+			default: return getObstacles(1);
 		}
 	}
 	
@@ -60,7 +62,7 @@ public class LevelManager {
 			case 1: return new NodeManager(new Node[]{
 					new Node(20,17),new Node(24,17),new Node(20,20),new Node(20,22),new Node(22,22),new Node(24,20),new Node(22,20),new Node(26,22)
 					}, new int[][]{{1,2},{0,5},{0,6,3},{2,4},{3,4,6,7},{1,6,7},{2,5,4},{6,5,7}});
-			default: return new NodeManager(new Node[]{}, new int[][]{{},{}});
+			default: return getNodes(1);
 		}
 	}
 	
@@ -68,7 +70,7 @@ public class LevelManager {
 		switch(c){
 			case 1: return new Zombie[] {};//new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p),new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
 			//x,y,frames, p
-			default: return new Zombie[] {new Zombie(7,17,new short[]{23},p),new Zombie(2,17,new short[]{23},p)};
+			default: return getZombies(1);
 		}
 	}
 	
@@ -79,9 +81,9 @@ public class LevelManager {
 											new CoolObject(29,37,2,1,"Feed the fish","Take care \nof your pets!",getSound("fish.mp3")),
 											new CoolObject(22,28,2,1,"Cook some \nfood","You look \nhungry!",getSound("cooking.mp3")),
 											new CoolObject(29,23,3,6,"Eat your \nfood","You're still \nhungry!",getSound("eating.mp3")),
-											new CoolObject(20,44,2,3,"Time for work","Start the car!",getSound("eating.mp3"))};
+											new CoolObject(20,45,2,2,"Time for work","Start the car!",getSound("eating.mp3"))};
 			//x,y,w,h,
-			default: return new CoolObject[] {new CoolObject(4,20,1,1,"Brush your teeth","This is an objective\nPress space",getSound("door.mp3"))};
+			default: return getCoolObjects(1);
 		}
 	}
 	
