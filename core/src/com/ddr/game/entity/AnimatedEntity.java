@@ -22,12 +22,12 @@ public class AnimatedEntity extends Obstacle{
 		maxframes = frames;
 		id=tlid;
 	}
-	public AnimatedEntity(int x, int y,short[] tlid,int frames,boolean xoffset, boolean yoffset){
-		super(x,y,1,1,tlid[0],xoffset,yoffset);
-		framecount=0;
-		maxframes = frames;
-		id=tlid;
-	}
+//	public AnimatedEntity(int x, int y,short[] tlid,int frames,boolean xoffset, boolean yoffset){
+//		super(x,y,1,1,tlid[0],xoffset,yoffset);
+//		framecount=0;
+//		maxframes = frames;
+//		id=tlid;
+//	}
 	
 	
 	public void draw(SpriteBatch sb, int abscamx, int abscamy) {

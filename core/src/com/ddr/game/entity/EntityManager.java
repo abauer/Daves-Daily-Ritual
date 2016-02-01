@@ -60,6 +60,8 @@ public class EntityManager {
 		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640-(1)*Sprite.SIZE,480-(2)*Sprite.SIZE);
 		sb.draw(Sprite.getSprite(Sprite.newsprite,139),640-(2)*Sprite.SIZE,480-(2)*Sprite.SIZE);
 		
+		m.displayNodes(sb, abscamx, abscamy);
+		
 		for(int i = 0; i<actions.length; i++){
 			CoolObject c = actions[i];
 			if(!c.getComplete()){
@@ -70,8 +72,6 @@ public class EntityManager {
 		}
 		//no more actions
 		return true;
-		
-//		m.displayNodes(sb, abscamx, abscamy);
 	}
 	
 	private boolean onScreen(Entity e, int x, int y){

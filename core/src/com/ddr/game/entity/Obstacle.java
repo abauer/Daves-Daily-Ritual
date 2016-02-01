@@ -33,31 +33,21 @@ public class Obstacle extends Entity{
 				id[j*width+i]=(short)(tlid+i+j*Sprite.SHEETWIDTH);
 	}
 	
-	public Obstacle(int x, int y, int width, int height,int tlid,boolean xoffset, boolean yoffset){
+	public Obstacle(int x, int y, int width, int height,short[] tlid,boolean xoffset, boolean yoffset){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		if(width*height>=1)
-			id = new short[width*height];
-		else
-			id = new short[1];
 		this.xoffset = xoffset;
 		this.yoffset = yoffset;
-		for(int i =0; i<width; i++)
-			for(int j = 0; j<height; j++){
-				id[j*width+i]=(short)(tlid+i+j*Sprite.SHEETWIDTH);
-//				System.out.println("id: "+j*width+i+" = "+id[j*width+i]);
-			}
+		this.id = tlid;
 	}
 	
 	public void draw(SpriteBatch sb,int abscamx, int abscamy) {
 		int ox = 0;
 		int oy = 0;
-		if(xoffset)
-			ox = 16;
-		if(yoffset)
-			oy = 16;
+		if(xoffset) ox = 16;
+		if(yoffset)	oy = 16;
 		for(int i =0; i<width; i++)
 			for(int j=0; j<height; j++){
 					sb.draw(Sprite.getSprite(Sprite.newsprite,id[j*width+i]),(x+i)*Sprite.SIZE+ox-abscamx,(15-1-y-j)*Sprite.SIZE-oy+abscamy);

@@ -5,6 +5,7 @@ import com.ddr.game.handlers.GameStateManager;
 import com.ddr.game.path.AStarPathFinder;
 import com.ddr.game.path.Mover;
 import com.ddr.game.path.NodeManager;
+import com.ddr.game.path.Path;
 import com.ddr.game.path.Path.Step;
 
 public class Zombie extends Player implements Mover{
@@ -31,80 +32,79 @@ public class Zombie extends Player implements Mover{
 	public void move(int[] vector){
 		super.move(vector);
 		if(vector[0]==1){
-			if(vector[1]==1){
-				direction=7;
-			}
-			if(vector[1]==0){
-				direction=0;
-			}
-			if(vector[1]==-1){
-				direction=1;
-			}
-		}
+			if(vector[1]==1) direction=7;
+			if(vector[1]==0) direction=0;
+			if(vector[1]==-1)direction=1;}
 		else if(vector[0]==0){
-			if(vector[1]==1){
-				direction=6;
-			}
-			if(vector[1]==-1){
-				direction=2;
-			}			
-		}
+			if(vector[1]==1) direction=6;
+			if(vector[1]==-1)direction=2;}			
 		else if(vector[0]==-1){
-			if(vector[1]==1){
-				direction=5;
-			}
-			if(vector[1]==0){
-				direction=4;
-			}
-			if(vector[1]==-1){
-				direction=3;
-			}			
-		}
+			if(vector[1]==1) direction=5;
+			if(vector[1]==0) direction=4;
+			if(vector[1]==-1)direction=3;}
+		
 		if(entityContainsEntity(target)){
 			DavesDailyRitual.gsm.setState(GameStateManager.GOVER);
 		}
 	}
 	
-	public int[] askMove(AStarPathFinder aspf,NodeManager m){//better selection of 8 dir and then do frames somehow and detection of objects
+	public int[] askMove(AStarPathFinder aspf,NodeManager m){
 		int vector[] = new int[2];
 		vector[0]=vector[1]=0;
-//		Path p = aspf.findPath(this, getX()-m.x, getY()-m.y, target.getX()-m.x, target.getY()-m.y);
-//		if(p==null)
-//			return vector;
-//		approach[loop++%25] = p.getStep(1);
-//		System.out.println("self: ["+(getX()-m.x)+", "+(getY()-m.y)+"]");
-//		
-//		int tx = p.getStep(1).getX();
-//		int ty = p.getStep(1).getY();
+//		System.out.println("finding path");
+		Path p = aspf.findPath(this, getAbsX(), getAbsY(), target.getAbsX(), target.getAbsY());
+//		System.out.println("we found a path!!\n\n******************\n\n");
+		if(p==null)
+			return vector;
+//		if(loop>=5)
+//			System.exit(0);
+//		approach[loop++%25] = p.getStep(1); //heuristic messing
+//		System.out.println("self: ["+(getAbsX())+", "+(getAbsY())+"]");
+		int tx = p.getStep(1).getX();
+		int ty = p.getStep(1).getY();
 //		System.out.println("next: ["+tx+", "+ty+"]");
-//		vector[0]=(tx-getX()+m.x);
-//		vector[1]=(ty-getY()+m.y);
+		vector[0]=(tx-getAbsX());
+		vector[1]=(ty-getAbsY());
 //		System.out.println("diff: ["+vector[0]+", "+vector[1]+"]\n");
-		
-//		
-//		System.out.println("z: ["+absx+", "+absy+"] P:"+target.absx+", "+target.absy);
-		int dx = (int) (target.absx-absx);
-		int dy = (int) (target.absy-absy);
-		
-		
-		if(Math.abs(dx) <= 2){
-			vector[0]=0;
-		}
-		else if(dx>0){
+		if(vector[0]>0){
 			vector[0]=xvel;
 		}
-		else if(dx<0){
+		else if(vector[0]<0){
 			vector[0]=-xvel;
 		}
-		if(Math.abs(dy) <= 2){
-			vector[1]=0;
-		}
-		else if(dy>0){
+		if(vector[1]>0){
 			vector[1]=yvel;
 		}
-		else if(dy<0){
+		else if(vector[1]<0){
 			vector[1]=-yvel;
 		}
+		
+//		System.out.println("z: ["+absx+", "+absy+"] P:"+target.absx+", "+target.absy);
+		
+		//below is old pathfinding
+		
+//		int dx = (int) (target.absx-absx);
+//		int dy = (int) (target.absy-absy);
+//		
+//		
+//		if(Math.abs(dx) <= 2){
+//			vector[0]=0;
+//		}
+//		else if(dx>0){
+//			vector[0]=xvel;
+//		}
+//		else if(dx<0){
+//			vector[0]=-xvel;
+//		}
+//		if(Math.abs(dy) <= 2){
+//			vector[1]=0;
+//		}
+//		else if(dy>0){
+//			vector[1]=yvel;
+//		}
+//		else if(dy<0){
+//			vector[1]=-yvel;
+//		}
 		
 //		System.out.println("diff: ["+dx+", "+dy+"]");
 //		System.out.println("shift: ["+(dx<<2)+", "+dy+"]");

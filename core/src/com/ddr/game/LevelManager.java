@@ -57,7 +57,7 @@ public class LevelManager {
 	
 	private Obstacle[] getObstacles(int c){
 		switch(c){
-			case 1: return new Obstacle[] {new Obstacle(20,39,2,3,37)};
+			case 1: return new Obstacle[] {new Obstacle(20,39,2,3,37),new Obstacle(21,16,2,1,new short[]{80,81},true,false)};
 			default: return getObstacles(1);
 		}
 	}
@@ -65,7 +65,7 @@ public class LevelManager {
 	private NodeManager getNodes(int c){
 		switch(c){
 			case 1: return new NodeManager(new Node[]{
-					new Node(20,17),new Node(24,17),new Node(20,20),new Node(20,22),new Node(22,22),new Node(24,20),new Node(22,20),new Node(26,22)
+					new Node(20,17,0),new Node(24,17,1),new Node(20,20,2),new Node(20,22,3),new Node(22,22,4),new Node(24,20,5),new Node(22,20,6),new Node(26,22,7)
 					}, new int[][]{{1,2},{0,5},{0,6,3},{2,4},{3,4,6,7},{1,6,7},{2,5,4},{6,5,7}});
 			default: return getNodes(1);
 		}
@@ -73,7 +73,7 @@ public class LevelManager {
 	
 	private Zombie[] getZombies(int c){
 		switch(c){
-			case 1: return new Zombie[] {};//new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p),new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
+			case 1: return new Zombie[] {new Zombie(20,20,new short[]{90,91,92,93,94,95,96,97},p)};//,new Zombie(20,22,new short[]{90,91,92,93,94,95,96,97},p)};
 			//x,y,frames, p
 			default: return getZombies(1);
 		}

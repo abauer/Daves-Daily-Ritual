@@ -52,65 +52,66 @@ public class AStarPathFinder implements PathFinder {
 	 */
 	public Path findPath(Mover mover, int sx, int sy, int tx, int ty) {
 		// easy first check, if the destination is blocked, we can't get there
-
 //		if (map.blocked(mover, tx, ty)) {
 //			System.out.println("destination blocked");
 //			return null;
 //		}
-		
 		// initial state for A*. The closed group is empty. Only the starting
-
 		// tile is in the open list and it'e're already there
+//		System.out.println("setup: clear lists");
 		closed.clear();
 		open.clear();
-		Node zombie = map.newPlayerNode(sx, sy);
-		Node target = map.newPlayerNode(tx,ty);
-		open.add(zombie);
-		
-//		nodes[tx][ty].parent = null;
-		
+//		System.out.println("setup: create Mover node");
+		Node zombie = map.newMoverNode(sx, sy);
+		zombie.cost = 0;
+		zombie.depth = 0;
+//		System.out.println("setup: create Target node");
+		Node target = map.newMoverNode(tx,ty);
+		target.cost = 0;
+		target.depth = 0;
+//		System.out.println("setup: add mover to open list");
+		open.add(zombie); 
+		target.parent = null;
 		// while we haven'n't exceeded our max search depth
 		int maxDepth = 0;
+//		System.out.println("find dem nodes");
 		while ((maxDepth < maxSearchDistance) && (open.size() != 0)) {
 			// pull out the first node in our open list, this is determined to 
-
 			// be the most likely to be the next step based on our heuristic
-
 			Node current = getFirstInOpen();
-			if (map.isClosestNode(current,tx,ty)) {
+//			System.out.println("find: get most likely node");
+			if (map.isClosestNode(current,tx,ty)) {//found exit
+//				System.out.println("i think we found a target");
 				break;
 			}
-			
+//			System.out.println("find: manage lists, now closed");
 			removeFromOpen(current);
 			addToClosed(current);
 			
-			// search through all the neighbours of the current node evaluating
+			// search through all the neighbors of the current node evaluating
+			// them as next steps
+//			System.out.println("find: iterate over neighbors");
 			Node[] neis = current.getNeighbors();
 			for(int i = 0; i<neis.length; i++){
 				int xp = neis[i].x;
 				int yp = neis[i].y;
-			
-			// them as next steps
-				
+//				System.out.println("nei: ["+xp+", "+yp+"]");
 //				if (isValidLocation(mover,sx,sy,xp,yp)) {
 					// the cost to get to this node is cost the current plus the movement
-
 					// cost to reach this node. Note that the heursitic value is only used
-
 					// in the sorted open list
-
+//					System.out.println("nei: calc next cost");
 					float nextStepCost = current.cost + getMovementCost(mover, current.x, current.y, xp, yp);
 					Node neighbour = neis[i];
-//						map.pathFinderVisited(xp, yp);
+//						map.pathFinderVisited(xp, yp); //for debug
 					
 					// if the new cost we've determined for this node is lower than 
-
-					// it has been previously makes sure the node hasn'e've
+//					 it has been previously makes sure the node hasn'e've
 					// determined that there might have been a better path to get to
-
 					// this node so it needs to be re-evaluated
-
+//					System.out.println("nei: determine if it should be less");
 					if (nextStepCost < neighbour.cost) {
+//						System.out.println("nei: new shorter path, fix lists");
 						if (inOpenList(neighbour)) {
 							removeFromOpen(neighbour);
 						}
@@ -124,30 +125,35 @@ public class AStarPathFinder implements PathFinder {
 					// reset it's cost to our current cost and add it as a next possible
 
 					// step (i.e. to the open list)
-
+//					System.out.println("nei: have we already done this node?");
 					if (!inOpenList(neighbour) && !(inClosedList(neighbour))) {
+//						System.out.println("nei: no - add to open list");
 						neighbour.cost = nextStepCost;
 						neighbour.heuristic = getHeuristicCost(mover, xp, yp, tx, ty);
 						maxDepth = Math.max(maxDepth, neighbour.setParent(current));
 						addToOpen(neighbour);
 					}
 				}
+//				System.out.println("find: keep going till found player");
 			}
 //		}
 
 		// since we'e've run out of search 
+		
+//		System.out.println("unlink Player");
+		target.destroy();
+		
 		// there was no path. Just return null
-
+		
 		if (target.parent == null) {
+//			System.out.println("find: was no path");
 			return null;
 		}
 		
 		// At this point we've definitely found a path so we can uses the parent
-
 		// references of the nodes to find out way from the target location back
-
 		// to the start recording the nodes on the way.
-
+//		System.out.println("find: create path");
 		Path path = new Path();
 		while (target != zombie) {
 			path.prependStep(target.x, target.y);
@@ -156,7 +162,9 @@ public class AStarPathFinder implements PathFinder {
 		path.prependStep(sx,sy);
 		
 		// thats it, we have our path 
-
+		
+//		System.out.println("unlink Zombie");
+		zombie.destroy();
 		return path;
 	}
 

@@ -26,10 +26,12 @@ public class NodeManager {
 	}
 	
 	public void displayNodes(SpriteBatch sb,int abscamx, int abscamy){
-//		for(Node n:allNodes){
-//			sb.draw(Sprite.getSprite(Sprite.newsprite, 1), n.x-abscamx,(15-1)*Sprite.SIZE-n.y+abscamy);
+		for(Node n:allNodes){
+//			System.out.println("node at ["+n.x+","+n.y+"]");
+			sb.draw(Sprite.getSprite(Sprite.newsprite, 122), n.x-abscamx,(15-1)*Sprite.SIZE-n.y+abscamy);
+			// should I draw lines?
 //			sb.draw(Sprite.getSprite(Sprite.newsprite,57),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
-//		}
+		}
 	}
 	
 	public void fillEntity(EntityManager em){
@@ -42,21 +44,63 @@ public class NodeManager {
 		}
 	}
 	
-	public Node newPlayerNode(int x, int y){
-		Node p = new Node(x,y);
-		Node l = new Node(0,0);
-		float distance = p.distance(l);
-		for(int i = 0; i<allNodes.size(); i++){
-			Node n = allNodes.get(i);
-			if(p.distance(n)<distance)
-				l = n;
+//	public Node newPlayerNode(int x, int y){
+//		Node p = new Node(x,y);
+//		Node l = new Node(0,0);
+//		float distance = p.distance(l);
+//		for(Node n : allNodes){
+//			if(p.distance(n)<distance)
+//				l = n;
+//		}
+//		if(l.x==0&&l.y==0){
+//			System.out.println("this is null");
+//			return null;
+//		}
+//		p.linkNode(l);
+//		l.linkNode(p);
+//		allNodes.add(p);
+//		return p;
+//	}
+	
+	//write Node dispose method
+	public Node newMoverNode(int x, int y){ //link to closest 2 nodes
+		Node p = new Node(x,y);//create new mover node
+		Node l[]=new Node[2]; //create array of 2 closest nodes
+//		for(int i = 0; i<l.length; i++){//init new nodes and distances
+//			l[i] = new Node(0,0);
+//			distance[i] = p.distance(l[i]);
+//		}
+//		System.out.println("setup: find closest");
+		for(int i = 0; i<allNodes.size(); i++){ //for every node we have, check if closest
+			Node n = allNodes.get(i); //get a node
+//			System.out.println("setup: prev distances ["+p.distance(l[0])+", "+p.distance(l[1])+"]");
+			for(int j = 0;j<l.length; j++){ //check against all our current closest nodes
+				if(p.distance(n)<p.distance(l[j])){ //is it closer?
+//					System.out.println("setup: prev distance = "+p.distance(l[j])+" new distance "+p.distance(n));
+					if(p.distance(n)<2){//too close, shouldn't be a possible node
+//						System.out.println("setup: ontop of this node, throw it out");
+						break;
+					}
+//					System.out.println("setup: new closest node:["+n.x+", "+n.y+"]");
+					for(int k=j;k<l.length-1;k++){//shift all current "closer nodes" to the right
+						l[k+1]=l[k];
+					}
+					l[j]=n;//set it in its place
+					break;//stop checking our close nodes, grab a new node
+				}
+			}
 		}
-		if(l.x==0&&l.y==0){
-			System.out.println("this is null");
-			return null;
+		for(int i = 0; i<l.length; i++){//link our nodes
+			Node n = l[i];
+			if(n.x==0&&n.y==0){
+				System.out.println("we have a null");
+				return null;
+			}
+//			System.out.println("setup: link nodes: ["+n.x+", "+n.y+"]");
+			p.linkNode(n);
+			n.linkNode(p);
 		}
-		p.linkNode(l);
-		allNodes.add(p);
+//		allNodes.add(p);
 		return p;
 	}
 	
