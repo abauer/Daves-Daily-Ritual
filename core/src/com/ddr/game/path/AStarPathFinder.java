@@ -91,7 +91,7 @@ public class AStarPathFinder implements PathFinder {
 			// search through all the neighbors of the current node evaluating
 			// them as next steps
 //			System.out.println("find: iterate over neighbors");
-			Node[] neis = current.getNeighbors();
+			Node[] neis = map.getNeighbors(current); 
 			for(int i = 0; i<neis.length; i++){
 				int xp = neis[i].x;
 				int yp = neis[i].y;
@@ -141,7 +141,7 @@ public class AStarPathFinder implements PathFinder {
 		// since we'e've run out of search 
 		
 //		System.out.println("unlink Player");
-		target.destroy();
+		map.destroyNode(target);
 		
 		// there was no path. Just return null
 		
@@ -164,7 +164,7 @@ public class AStarPathFinder implements PathFinder {
 		// thats it, we have our path 
 		
 //		System.out.println("unlink Zombie");
-		zombie.destroy();
+		map.destroyNode(zombie);
 		return path;
 	}
 

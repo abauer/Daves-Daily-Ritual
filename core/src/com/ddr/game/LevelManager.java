@@ -64,9 +64,13 @@ public class LevelManager {
 	
 	private NodeManager getNodes(int c){
 		switch(c){
-			case 1: return new NodeManager(new Node[]{
+			case 1: return new NodeManager(	
+					new int[] {20,24,20,20,22,24,22,26},
+					new int[] {17,17,20,22,22,20,20,22},
+					new int[][]{{1,2},{0,5},{0,6,3},{2,4},{3,4,6,7},{1,6,7},{2,5,4},{6,5,7}});
+					/*
 					new Node(20,17,0),new Node(24,17,1),new Node(20,20,2),new Node(20,22,3),new Node(22,22,4),new Node(24,20,5),new Node(22,20,6),new Node(26,22,7)
-					}, new int[][]{{1,2},{0,5},{0,6,3},{2,4},{3,4,6,7},{1,6,7},{2,5,4},{6,5,7}});
+					}, new int[][]{{1,2},{0,5},{0,6,3},{2,4},{3,4,6,7},{1,6,7},{2,5,4},{6,5,7}});*/
 			default: return getNodes(1);
 		}
 	}

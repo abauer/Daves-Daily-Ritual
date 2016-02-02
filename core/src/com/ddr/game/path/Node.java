@@ -1,109 +1,61 @@
 package com.ddr.game.path;
 
-import java.util.Random;
-
-import com.ddr.game.Sprite;
-
 public class Node implements Comparable{
 	
 	int x, y; //xy in px format
-	Node[] nei;
+	int[] nei;
+	int len;
+	int cap;
 	float cost;
 	public Node parent;
 	/** The heuristic cost of this node */
 	public float heuristic;
 	/** The search depth of this node */
 	public int depth;
-	private Random r;
-	private int id;
+	public int id;
 	
-	public Node(int x, int y){
+	public Node(int x, int y, int id){
 		this.x = x;
 		this.y = y;
-		r = new Random();
-		id = r.nextInt();
+		this.id = id; 
 //		System.out.println("created node ("+id+") at ["+this.x+", "+this.y+"]");
 		cost = 0;
-		nei = new Node[]{};
-		
+		len = 0;
+		cap = 1;
+		nei = new int[cap];
 	}
-	
-	public Node(int x, int y,int a){
-		this.x = x*Sprite.SIZE;
-		this.y = y*Sprite.SIZE;
-		r = new Random();
-		id = r.nextInt();
-//		System.out.println("created node ("+id+") at ["+this.x+", "+this.y+"]");
-		cost = 0;
-		nei = new Node[]{};
 		
-	}
-	
-	public void linkNode(Node n){
-//		System.out.println("there are "+count+"nodes");
-		Node[] temp = new Node[nei.length]; //create temp buffer
-		int i;
-		for(i = 0; i<nei.length; i++){ //copy to temp buffer
-			temp[i]=nei[i];
+	public void linkNode(int link){
+//		System.out.println("len:"+len +"array len"+nei.length);
+		len+=1;
+//		System.out.println("len:"+len+ "cap:"+cap);
+		if(len>cap){
+			int[] temp = new int[len-1];
+			for(int i = 0; i<len-1; i++ )
+				temp[i]=nei[i];
+			cap*=2;
+			nei = new int[cap];
+			for(int i = 0; i<len-1; i++)
+				nei[i] = temp[i];
 		}
-		i++;					//increase number of nodes linked
-		nei = new Node[i];      //create bigger list for linked nodes
-		for(i = 0; i<nei.length-1; i++) //link all of old list
-			nei[i]=temp[i];
-//		System.out.println("created link from "+id+" to "+n.id);
-		nei[nei.length-1]=n; //link the new node
-//		listNodes();
+//		System.out.println("len:"+len+ "cap:"+cap);
+		nei[len-1]=link;
 	}
 	
 	private void listNodes(){
 		for(int index = 0; index<nei.length; index++){
-			System.out.println("this node ["+id+"] is linked with "+nei[index].id);
+			System.out.println("this node ["+id+"] is linked with "+nei[index]);
 		}
 	}
 	
 	public void unlink(Node n){
-//		System.out.println("attempting to unlink ("+this.id+") from ("+n.id+") my nodes are");
-//		listNodes();
-//		System.out.println("\n");
-		
-		boolean flag=false;
-		Node[] temp = new Node[nei.length]; //create temp buffer
-		for(int i = 0; i<nei.length; i++){ //copy all to temp buffer
-			if(n==nei[i] || n.id == nei[i].id){
-//				System.out.println("found a match");
-				flag = true;
+		for(int i=0; i<len; i++){
+			if(n.id == nei[i]){
+				nei[i]=nei[len-1];
+				len--;
+				return;
 			}
-			temp[i]=nei[i];
 		}
-		if(!flag){
-			System.out.println("quitting because no match");
-			return;
-		}
-		nei = new Node[temp.length-1]; //create smaller list for linked nodes
-		int index = 0;
-		for(int i = 0; i<temp.length; i++){ //link all that we keep
-			if(!(n==temp[i])){
-				
-				nei[index]=temp[i];
-//				System.out.println("restroing link between ("+this.id+") and ("+nei[index].id+")");
-				index++;
-				continue;
-			}
-//			System.out.println("successful unlinking");
-		}
-//		listNodes();
-//		System.out.println("quit unlinking");
-	}
-	
-	
-	public void destroy(){
-		for(int i = 0; i<nei.length;i++){
-			nei[i].unlink(this);
-		}
-		nei= new Node[]{};
-//		System.out.println("still linked to -->");
-//		listNodes();
-//		System.out.println("<--still linked to ");
 	}
 	
 	public float distance(Node n){
@@ -114,7 +66,7 @@ public class Node implements Comparable{
 		return (float) (Math.sqrt((dx*dx)+(dy*dy)));
 	}
 	
-	public Node[] getNeighbors(){
+	public int[] getNeighbors(){
 		return nei;
 	}
 	
@@ -143,6 +95,11 @@ public class Node implements Comparable{
 		} else {
 			return 0;
 		}
+	}
+
+	public void destroy() {
+		nei = null;
+		
 	}
 
 //	private class Node implements Comparable {

@@ -43,7 +43,7 @@ public class EntityManager {
 			list.add(c[i]);
 			actions[i]=c[i];
 		}
-		m.fillEntity(this);
+//		m.fillEntity(this);
 	}
 
 	public boolean drawEntities(SpriteBatch sb,int camX, int camY,int abscamx,int abscamy){		
