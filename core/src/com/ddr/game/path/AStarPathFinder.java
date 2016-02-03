@@ -62,11 +62,13 @@ public class AStarPathFinder implements PathFinder {
 		closed.clear();
 		open.clear();
 //		System.out.println("setup: create Mover node");
-		Node zombie = map.newMoverNode(sx, sy);
+		Node z = map.newMoverNode(sx, sy);
+		Node zombie = z;
 		zombie.cost = 0;
 		zombie.depth = 0;
 //		System.out.println("setup: create Target node");
-		Node target = map.newMoverNode(tx,ty);
+		Node player = map.newMoverNode(tx,ty);
+		Node target = player;
 		target.cost = 0;
 		target.depth = 0;
 //		System.out.println("setup: add mover to open list");
@@ -141,12 +143,14 @@ public class AStarPathFinder implements PathFinder {
 		// since we'e've run out of search 
 		
 //		System.out.println("unlink Player");
-		map.destroyNode(target);
+		
 		
 		// there was no path. Just return null
 		
 		if (target.parent == null) {
 //			System.out.println("find: was no path");
+			map.destroyNode(z);
+			map.destroyNode(player);
 			return null;
 		}
 		
@@ -164,7 +168,8 @@ public class AStarPathFinder implements PathFinder {
 		// thats it, we have our path 
 		
 //		System.out.println("unlink Zombie");
-		map.destroyNode(zombie);
+		map.destroyNode(z);
+		map.destroyNode(player);
 		return path;
 	}
 

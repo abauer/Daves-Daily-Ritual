@@ -29,16 +29,19 @@ public class NodeManager {
 			n.linkNode(links[i]);
 		}
 		allNodes.add(n);
+//		System.out.println("creating node "+count);
 		count++;
 		return n;
 	}
 	
 	public void destroyNode(Node done){
+//		System.out.println("destroying node "+count);
 		for(Node n:allNodes){
 			n.unlink(done);
 		}
 		done.destroy();
-		allNodes.remove(done);
+		if(!allNodes.remove(done))
+			System.out.println("Bad error &&&&&&&&&&&&&&&&&&&&&&&&");;
 	}
 	
 	public Node[] getNeighbors(Node loc){
@@ -74,7 +77,7 @@ public class NodeManager {
 			sb.begin();
 //			sb.draw(Sprite.getSprite(Sprite.newsprite,57),(x)*Sprite.SIZE-abscamx,(15-1-y)*Sprite.SIZE+abscamy);
 		}
-		System.out.println("There are "+allNodes.size()+" nodes");
+//		System.out.println("There are "+allNodes.size()+" nodes");
 	}
 	
 //	public void fillEntity(EntityManager em){
